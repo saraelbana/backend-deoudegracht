@@ -1,12 +1,15 @@
 package com.deoudegracht.deoudegracht.models;
 
 import java.time.LocalDate;
+import java.time.LocalTime;
 
 public class Reservation {
     private Long ID;
     private LocalDate date;
+    private LocalTime time;
     private Integer numberOfPersons;
     private Guest guest;
+    Table table;
 
     public Reservation() {
     }
@@ -25,6 +28,22 @@ public class Reservation {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    public LocalTime getTime() {
+        return time;
+    }
+
+    public void setTime(LocalTime time) {
+        this.time = time;
+    }
+
+    public Table getTable() {
+        return table;
+    }
+
+    public void setTable(Table table) {
+        this.table = table;
     }
 
     public Integer getNumberOfPersons() {
