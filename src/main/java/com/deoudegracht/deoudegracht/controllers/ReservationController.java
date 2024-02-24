@@ -9,7 +9,23 @@ public class ReservationController {
     }
 
     @GetMapping
-    ResponseEntity<ReservationRequestDTO> getReservations() {
-        return ResponseEntity.ok(new ReservationRequestDTO());
+    ResponseEntity<ReservationResponseDTO> getReservations() {
+        return ResponseEntity.ok(new ReservationResponseDTO());
+    }
+    @GetMapping("/{id}")
+    ResponseEntity<ReservationResponseDTO> getReservation(@RequestParam String id) {
+        return ResponseEntity.ok(new ReservationResponseDTO());
+    }
+    @PostMapping()
+    ResponseEntity<ReservationResponseDTO> createReservation(@RequestBody ReservationRequestDTO reservationRequestDTO) {
+        return ResponseEntity.ok(new ReservationResponseDTO());
+    }
+    @PutMapping("/{id}")
+    ResponseEntity<ReservationResponseDTO> updateReservation(@RequestParam String id, @RequestBody ReservationRequestDTO reservationRequestDTO) {
+        return ResponseEntity.ok(new ReservationResponseDTO());
+    }
+    @DeleteMapping("/{id}")
+    ResponseEntity<ReservationResponseDTO> deleteReservation(@RequestParam String id) {
+        return ResponseEntity.ok(new ReservationResponseDTO());
     }
 }
