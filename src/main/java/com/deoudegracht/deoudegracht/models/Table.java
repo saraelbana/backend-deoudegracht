@@ -1,5 +1,5 @@
 package com.deoudegracht.deoudegracht.models;
-import jakarta.persistence.Entity;
+
 
 
 public class Table {
