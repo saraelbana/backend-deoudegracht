@@ -1,10 +1,17 @@
 package com.deoudegracht.deoudegracht.dtos;
 
+import org.jetbrains.annotations.NotNull;
+
 public class EmployeeRequestDTO {
+    @NotNull
     private String firstName;
+    @NotNull
     private String lastName;
+    @NotNull
     private String email;
+    @NotNull
     private String username;
+    @NotNull
     private String password;
     public EmployeeRequestDTO() {
     }
