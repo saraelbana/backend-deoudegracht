@@ -2,6 +2,7 @@ package com.deoudegracht.deoudegracht.controllers;
 
 import com.deoudegracht.deoudegracht.dtos.EmployeeRequestDTO;
 import com.deoudegracht.deoudegracht.dtos.EmployeeResponseDTO;
+import com.deoudegracht.deoudegracht.services.EmployeeService;
 import com.sun.source.util.SourcePositions;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -12,7 +13,9 @@ import java.net.SocketTimeoutException;
 @Controller
 @RequestMapping("/employees")
 public class EmployeeController {
-    public EmployeeController() {
+    private final EmployeeService employeeService;
+    public EmployeeController(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
     @GetMapping
     ResponseEntity<EmployeeResponseDTO> getEmployees() {
