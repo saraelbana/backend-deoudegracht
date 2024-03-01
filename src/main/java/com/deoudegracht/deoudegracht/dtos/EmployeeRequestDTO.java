@@ -1,5 +1,8 @@
 package com.deoudegracht.deoudegracht.dtos;
 
+import jakarta.validation.constraints.Digits;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Size;
 import org.jetbrains.annotations.NotNull;
 
 public class EmployeeRequestDTO {
@@ -8,10 +11,12 @@ public class EmployeeRequestDTO {
     @NotNull
     private String lastName;
     @NotNull
+    @Email(message = "Please enter a valid email")
     private String email;
     @NotNull
     private String username;
     @NotNull
+    @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
     public EmployeeRequestDTO() {
     }

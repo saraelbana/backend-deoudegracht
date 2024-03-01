@@ -2,6 +2,8 @@ package com.deoudegracht.deoudegracht.models;
 
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
+import jakarta.validation.constraints.*;
+import org.jetbrains.annotations.NotNull;
 
 @Entity
 @Table(name = "employees")
@@ -9,12 +11,20 @@ public class Employee {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
     private Long id;
+    @Column(name = "first_name")
+    @NotNull
     private String firstName;
+    @Column(name = "last_name")
+    @NotNull
     private String lastName;
+    @NotNull
+    @Email(message = "Please enter a valid email")
     private String email;
+    @NotNull
     private String username;
+    @NotNull
+    @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
-
     public Employee() {
     }
     public Employee(String firstName, String lastName, String email, String username, String password) {
