@@ -1,2 +1,4 @@
-package com.deoudegracht.deoudegracht.mappers;public class MenuItemMapper {
+package com.deoudegracht.deoudegracht.mappers;
+
+public class MenuItemMapper {
 }
