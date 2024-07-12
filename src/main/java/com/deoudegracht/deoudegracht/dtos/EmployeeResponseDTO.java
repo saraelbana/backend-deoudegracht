@@ -6,13 +6,15 @@ public class EmployeeResponseDTO {
     private String email;
     private String username;
     private String password;
+    private long id;
 
-    public EmployeeResponseDTO(String firstName, String lastName, String email, String username, String password) {
+    public EmployeeResponseDTO(String firstName, String lastName, String email, String username, String password, long id) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
         this.username = username;
         this.password = password;
+        this.id = id;
     }
     public EmployeeResponseDTO() {
     }
@@ -55,5 +57,9 @@ public class EmployeeResponseDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public long getId() {
+        return this.id;
     }
 }

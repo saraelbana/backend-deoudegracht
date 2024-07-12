@@ -10,7 +10,7 @@ import org.jetbrains.annotations.NotNull;
 public class Employee {
     @Id
     @GeneratedValue (strategy = GenerationType.IDENTITY)
-    private Long id;
+    private long id;
     @Column(name = "first_name")
     @NotNull
     private String firstName;
