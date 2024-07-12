@@ -10,6 +10,7 @@ public class MenuItem {
     private String description;
     private double price;
     private String category;
+    Recipe recipe = new Recipe();
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
@@ -19,6 +20,13 @@ public class MenuItem {
         this.description = description;
         this.price = price;
         this.category = category;
+    }
+    public MenuItem(String name, String description, double price, String category, Recipe recipe) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.category = category;
+        this.recipe = recipe;
     }
 
     public MenuItem() {
@@ -47,6 +55,9 @@ public class MenuItem {
     public void setName(String name) {
         this.name = name;
     }
+    public Recipe getRecipe() {
+        return recipe;
+    }
 
     public void setDescription(String description) {
         this.description = description;
@@ -58,5 +69,9 @@ public class MenuItem {
 
     public void setCategory(String category) {
         this.category = category;
+    }
+
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
     }
 }
