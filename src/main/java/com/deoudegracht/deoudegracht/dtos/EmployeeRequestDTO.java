@@ -31,9 +31,6 @@ public class EmployeeRequestDTO {
         this.role = role;
         this.email = email;
         this.phone = phone;
-
-        System.out.println("HELLO FROM EMPLOYEE REQUEST DTO EMAIL: " + this.email + ", ROLE: " + this.role + ", PHONE: " + this.phone);
-        System.out.println("HELLO FROM EMPLOYEE REQUEST DTO ROLE is " + role);
     }
 
 

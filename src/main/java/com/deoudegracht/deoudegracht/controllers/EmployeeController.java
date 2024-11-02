@@ -54,10 +54,6 @@ public class EmployeeController {
 
     @PostMapping()
     ResponseEntity<?>createEmployee(@RequestBody EmployeeRequestDTO employeeRequestDTO) {
-        System.out.println("Method is called");
-        System.out.println(employeeRequestDTO.toString());
-        System.out.println(employeeRequestDTO.getRole());
-        System.out.println(employeeRequestDTO.getEmail());
         try {
             EmployeeResponseDTO newCreatedEmployeeDto = employeeService.createEmployee(EmployeeMapper.mapEmployeeRequestDTOToEmployee(employeeRequestDTO));
             System.out.println("Hello there new Employee is created with ID number" + newCreatedEmployeeDto.getId());

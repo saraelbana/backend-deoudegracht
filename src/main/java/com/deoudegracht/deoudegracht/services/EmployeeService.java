@@ -61,9 +61,7 @@ public class EmployeeService {
     }
 
     public EmployeeResponseDTO createEmployee(Employee employee) {
-        System.out.println("ROLE IS " + employee.getUser().getRole());
         if(userService.findByUsername(employee.getUser().getUsername()).isEmpty()){
-            System.out.println("ROLE IS " + employee.getUser().getRole());
             try {
 
                 for(Role role : employee.getUser().getRoles()) {

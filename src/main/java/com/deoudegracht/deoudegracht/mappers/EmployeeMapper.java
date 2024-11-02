@@ -11,7 +11,6 @@ public class EmployeeMapper {
         return new EmployeeResponseDTO(employee.getId(), employee.getFirstname(), employee.getLastname(), employee.getEmail(), employee.getPhone(), employee.getUser().getUsername(), employee.getUser().getRole());
     }
     static public Employee mapEmployeeRequestDTOToEmployee(EmployeeRequestDTO employeeRequestDTO){
-        System.out.println("HELLO FROM THE MAPPER");
         return new Employee(employeeRequestDTO.getFirstname(), employeeRequestDTO.getLastname(), employeeRequestDTO.getEmail(), employeeRequestDTO.getPhone(), employeeRequestDTO.getUsername(), employeeRequestDTO.getPassword(), employeeRequestDTO.getRole());
     }
     static public Employee mapEmployeeRequestDTOToEmployee(EmployeeRequestDTO employeeRequestDTO, long id){
