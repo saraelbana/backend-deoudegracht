@@ -1,10 +1,13 @@
 package com.deoudegracht.deoudegracht.dtos;
 
+import com.deoudegracht.deoudegracht.models.Recipe;
+
 public class MenuItemRequestDTO {
     private String name;
     private String description;
     private double price;
     private String category;
+
 
     public MenuItemRequestDTO() {
     }
@@ -47,4 +50,5 @@ public class MenuItemRequestDTO {
     public void setCategory(String category) {
         this.category = category;
     }
+
 }

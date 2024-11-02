@@ -1,38 +1,43 @@
 package com.deoudegracht.deoudegracht.dtos;
 
-public class EmployeeResponseDTO {
-    private String firstName;
-    private String lastName;
-    private String email;
-    private String username;
-    private String password;
-    private long id;
+import com.deoudegracht.deoudegracht.mappers.RoleMapper;
+import com.deoudegracht.deoudegracht.models.User;
 
-    public EmployeeResponseDTO(String firstName, String lastName, String email, String username, String password, long id) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+public class EmployeeResponseDTO {
+    private long id;
+    private String firstname;
+    private String lastname;
+    private String email;
+    private String phone;
+    private User user;
+
+
+    public EmployeeResponseDTO(long id, String firstname, String lastname, String email, String phone, String username, String role) {
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.email = email;
-        this.username = username;
-        this.password = password;
+        this.phone = phone;
+        this.user = new User(username,role);
         this.id = id;
+
     }
     public EmployeeResponseDTO() {
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getEmail() {
@@ -44,21 +49,12 @@ public class EmployeeResponseDTO {
     }
 
     public String getUsername() {
-        return username;
+        return user.getUsername();
     }
 
     public void setUsername(String username) {
-        this.username = username;
+        this.user.setUsername(username);
     }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public long getId() {
         return this.id;
     }

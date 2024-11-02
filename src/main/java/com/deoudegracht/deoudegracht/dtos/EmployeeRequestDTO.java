@@ -7,41 +7,50 @@ import org.jetbrains.annotations.NotNull;
 
 public class EmployeeRequestDTO {
     @NotNull
-    private String firstName;
+    private String firstname;
     @NotNull
-    private String lastName;
+    private String lastname;
     @NotNull
     @Email(message = "Please enter a valid email")
-    private String email;
+    private String email = "not provided";
     @NotNull
     private String username;
     @NotNull
     @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
+    private String role = "EMPLOYEE";
+    private String phone = "not provided";
     public EmployeeRequestDTO() {
     }
-    public EmployeeRequestDTO(String firstName, String lastName, String email, String username, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
+    public EmployeeRequestDTO(@NotNull String firstname, @NotNull String lastname, String email, @NotNull String username, @NotNull String password, String role, String phone) {
+
+        this.firstname = firstname;
+        this.lastname = lastname;
         this.username = username;
         this.password = password;
+        this.role = role;
+        this.email = email;
+        this.phone = phone;
+
+        System.out.println("HELLO FROM EMPLOYEE REQUEST DTO EMAIL: " + this.email + ", ROLE: " + this.role + ", PHONE: " + this.phone);
+        System.out.println("HELLO FROM EMPLOYEE REQUEST DTO ROLE is " + role);
     }
 
-    public String getFirstName() {
-        return firstName;
+
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstname(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getEmail() {
@@ -66,5 +75,23 @@ public class EmployeeRequestDTO {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getRole() {
+        return role;
+    }
+    public void setRole(String role) {
+        this.role = role;
+    }
+    public String getPhone() {
+        return phone;
+    }
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    @Override
+    public String toString() {
+        return firstname + " " + lastname + " " + email + " " + phone + " " + username + " " + password + " " + role;
     }
 }

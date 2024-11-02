@@ -1,37 +1,51 @@
 package com.deoudegracht.deoudegracht.models;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.fasterxml.jackson.annotation.ObjectIdGenerators;
+import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 
 @Entity
 @Table(name = "menu-item")
 public class MenuItem {
-    private String name;
-    private String description;
-    private double price;
-    private String category;
-    //1:1 relationship
-    //private Recipe recipe = new Recipe();
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+    private String name;
+    private String description;
+    private double price;
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false, unique = true)
+    private FoodCategoryType category;
+
+
+    @OneToOne(optional = true, cascade = CascadeType.ALL)
+    @JoinColumn(name = "recipe_id")
+    private Recipe recipe;
 
     public MenuItem(String name, String description, double price, String category) {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.category = category;
     }
     public MenuItem(String name, String description, double price, String category, Recipe recipe) {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.category = category;
-        //this.recipe = recipe;
+        this.recipe = recipe;
     }
 
     public MenuItem() {
+    }
+    public MenuItem(MenuItem menuItem, long id) {
+        this.name = menuItem.getName();
+        this.description = menuItem.getDescription();
+        this.price = menuItem.getPrice();
+        this.id = id;
+
     }
 
     public long getId() {
@@ -50,16 +64,13 @@ public class MenuItem {
         return price;
     }
 
-    public String getCategory() {
-        return category;
-    }
 
     public void setName(String name) {
         this.name = name;
     }
-//    public Recipe getRecipe() {
-//        return recipe;
-//    }
+    public Recipe getRecipe() {
+        return recipe;
+    }
 
     public void setDescription(String description) {
         this.description = description;
@@ -69,11 +80,7 @@ public class MenuItem {
         this.price = price;
     }
 
-    public void setCategory(String category) {
-        this.category = category;
+    public void setRecipe(Recipe recipe) {
+        this.recipe = recipe;
     }
-
-//    public void setRecipe(Recipe recipe) {
-//        this.recipe = recipe;
-//    }
 }

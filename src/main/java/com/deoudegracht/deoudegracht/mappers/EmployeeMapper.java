@@ -8,12 +8,13 @@ import org.springframework.stereotype.Component;
 @Component
 public class EmployeeMapper {
     static public EmployeeResponseDTO mapEmployeeToEmployeeResponseDTO(Employee employee) {
-        return new EmployeeResponseDTO(employee.getFirstName(), employee.getLastName(), employee.getEmail(), employee.getUsername(), employee.getPassword(), employee.getId());
+        return new EmployeeResponseDTO(employee.getId(), employee.getFirstname(), employee.getLastname(), employee.getEmail(), employee.getPhone(), employee.getUser().getUsername(), employee.getUser().getRole());
     }
     static public Employee mapEmployeeRequestDTOToEmployee(EmployeeRequestDTO employeeRequestDTO){
-        return new Employee(employeeRequestDTO.getFirstName(), employeeRequestDTO.getLastName(), employeeRequestDTO.getEmail(), employeeRequestDTO.getUsername(), employeeRequestDTO.getPassword());
+        System.out.println("HELLO FROM THE MAPPER");
+        return new Employee(employeeRequestDTO.getFirstname(), employeeRequestDTO.getLastname(), employeeRequestDTO.getEmail(), employeeRequestDTO.getPhone(), employeeRequestDTO.getUsername(), employeeRequestDTO.getPassword(), employeeRequestDTO.getRole());
     }
-    static public Employee mapEmployeeRequestDTOToEmployee(EmployeeRequestDTO employeeRequestDTO, Long id){
+    static public Employee mapEmployeeRequestDTOToEmployee(EmployeeRequestDTO employeeRequestDTO, long id){
         return new Employee(mapEmployeeRequestDTOToEmployee(employeeRequestDTO), id);
     }
 

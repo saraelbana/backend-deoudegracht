@@ -9,32 +9,62 @@ import org.jetbrains.annotations.NotNull;
 @Table(name = "employees")
 public class Employee {
     @Id
-    @GeneratedValue (strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    @Column(name = "first_name")
+    @Column(name = "firstname")
     @NotNull
-    private String firstName;
-    @Column(name = "last_name")
+    private String firstname;
+    @Column(name = "lastname")
     @NotNull
-    private String lastName;
-    @NotNull
+    private String lastname;
+
     @Email(message = "Please enter a valid email")
     private String email;
-    @NotNull
-    private String username;
-    @NotNull
-    @Size(min = 8, message = "Password must be at least 8 characters long")
-    private String password;
+    private String phone;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_username", referencedColumnName = "username")
+    User user;
+
     public Employee() {
     }
-    public Employee(String firstName, String lastName, String email, String username, String password) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+
+    public Employee(@NotNull String firstname, @NotNull String lastname, String email, String phone, @NotNull String username, @NotNull String password, String role) {
+        System.out.println("HELLO FROM EMPLOYEE");
+        this.firstname = firstname;
+        System.out.println(
+                this.firstname + " ");
+        this.lastname = lastname;
         this.email = email;
-        this.username = username;
-        this.password = password;
+        this.phone = phone;
+        System.out.println(
+                this.phone + " ROLETYPE " + role);
+        this.user = new User(username, password, role);
+
+        System.out.println(
+                this.firstname + " "
+                + this.lastname + " "
+                + this.email + " "
+                + this.phone + " "
+                + this.user.getUsername() + " "
+                + this.user.getPassword() + " "
+                + this.user.getRoles().toString());
     }
-    public Employee(Employee employee, Long id) {
+
+    public Employee(Employee employee, long id) {
+        this.firstname = employee.getFirstname();
+        this.lastname = employee.getLastname();
+        this.email = employee.getEmail();
+        this.user = employee.getUser();
+        this.id = id;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public Long getId() {
@@ -45,20 +75,20 @@ public class Employee {
         this.id = id;
     }
 
-    public String getFirstName() {
-        return firstName;
+    public String getFirstname() {
+        return firstname;
     }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
+    public void setFirstName(String firstname) {
+        this.firstname = firstname;
     }
 
-    public String getLastName() {
-        return lastName;
+    public String getLastname() {
+        return lastname;
     }
 
-    public void setLastName(String lastName) {
-        this.lastName = lastName;
+    public void setLastname(String lastname) {
+        this.lastname = lastname;
     }
 
     public String getEmail() {
@@ -69,19 +99,11 @@ public class Employee {
         this.email = email;
     }
 
-    public String getUsername() {
-        return username;
+    public String getPhone() {
+        return phone;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

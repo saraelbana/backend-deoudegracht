@@ -3,7 +3,11 @@ package com.deoudegracht.deoudegracht.services;
 import com.deoudegracht.deoudegracht.dtos.EmployeeResponseDTO;
 import com.deoudegracht.deoudegracht.mappers.EmployeeMapper;
 import com.deoudegracht.deoudegracht.models.Employee;
+import com.deoudegracht.deoudegracht.models.Role;
+import com.deoudegracht.deoudegracht.models.User;
 import com.deoudegracht.deoudegracht.repositories.EmployeeRepository;
+import com.deoudegracht.deoudegracht.repositories.RoleRepository;
+import com.deoudegracht.deoudegracht.repositories.UserRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -13,42 +17,73 @@ import java.util.Optional;
 @Service
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
+    private final RoleRepository roleRepository;
+    private final UserService userService;
 
-    public EmployeeService(EmployeeRepository employeeRepository) {
+    public EmployeeService(EmployeeRepository employeeRepository, UserService userService, RoleRepository roleRepository) {
         this.employeeRepository = employeeRepository;
+        this.userService = userService;
+        this.roleRepository = roleRepository;
     }
     public List<EmployeeResponseDTO> getAllEmployees() {
         try {
-            List <EmployeeResponseDTO> employeesResponseDtoList = new ArrayList<>();
+            List <EmployeeResponseDTO> employeesResponseDtoList;
             List <Employee> employeesList = employeeRepository.findAll();
-            for(Employee employee : employeesList) {
-                employeesResponseDtoList.add(EmployeeMapper.mapEmployeeToEmployeeResponseDTO(employee));
-
+            if(employeesList.isEmpty()) {
+                throw new RuntimeException("No Employees found");
             }
-            return employeesResponseDtoList;
+            else {
+                employeesResponseDtoList = new ArrayList<>();
+                for (Employee employee : employeesList) {
+                    employeesResponseDtoList.add(EmployeeMapper.mapEmployeeToEmployeeResponseDTO(employee));
+
+                }
+                return employeesResponseDtoList;
+            }
         }catch (Exception e) {
             throw new RuntimeException("No Employees found");
         }
     }
-    public Employee getEmployeeById(long id) {
+    public EmployeeResponseDTO getEmployeeById(long id) {
         try {
             Optional<Employee> employee = employeeRepository.findById(id);
-            return employee.get();
+            return EmployeeMapper.mapEmployeeToEmployeeResponseDTO(employee.get());
         }catch (Exception e) {
             throw new RuntimeException("Employee not found");
         }
     }
-    public EmployeeResponseDTO createEmployee(Employee employee) {
-        try {
-            employeeRepository.save(employee);
+    public EmployeeResponseDTO getEmployeeByUsername(String username) {
+       Optional<User> user = userService.findByUsername(username);
+       if(user.isPresent()) {
+           return EmployeeMapper.mapEmployeeToEmployeeResponseDTO(user.get().getEmployee());
+       }
+       throw new RuntimeException("Employee not found");
+    }
 
-            System.out.println(employee.getId());
-            return EmployeeMapper.mapEmployeeToEmployeeResponseDTO(employee);
-        }catch (Exception e) {
-            throw new RuntimeException("Creating employee process failed");
+    public EmployeeResponseDTO createEmployee(Employee employee) {
+        System.out.println("ROLE IS " + employee.getUser().getRole());
+        if(userService.findByUsername(employee.getUser().getUsername()).isEmpty()){
+            System.out.println("ROLE IS " + employee.getUser().getRole());
+            try {
+
+                for(Role role : employee.getUser().getRoles()) {
+                    roleRepository.save(role);
+                }
+                employeeRepository.save(employee);
+                System.out.println(employee.getId());
+                return EmployeeMapper.mapEmployeeToEmployeeResponseDTO(employee);
+            }catch (Exception e) {
+                throw new RuntimeException("creating employee process failed" + e.getMessage());
+            }
         }
+        else {
+            throw new RuntimeException("username already exists");
+        }
+
     }
     public Boolean checkEmployeeExists(Employee employee) {
+        //how I'm checking if employee exists using the getID() if I dont know if this employee is present or not then i for sure don't know his ID
+        // the logic here needs to be adjusted
         try {
             return employeeRepository.findById(employee.getId()).isPresent();
         }catch (Exception e) {
@@ -64,7 +99,7 @@ public class EmployeeService {
             throw new RuntimeException("Updating employee process failed");
         }
     }
-    public void deleteEmployee(Long id) {
+    public void deleteEmployee(long id) {
         employeeRepository.findById(id).orElseThrow(() -> new RuntimeException("Employee not found"));
         try {
             employeeRepository.deleteById(id);
