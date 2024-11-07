@@ -1,8 +1,10 @@
 package com.deoudegracht.deoudegracht.models;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "roles")
 public class  Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
