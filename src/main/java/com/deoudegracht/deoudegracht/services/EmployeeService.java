@@ -52,14 +52,21 @@ public class EmployeeService {
             throw new RuntimeException("Employee not found");
         }
     }
-    public EmployeeResponseDTO getEmployeeByUsername(String username) {
-       Optional<User> user = userService.findByUsername(username);
-       if(user.isPresent()) {
-           return EmployeeMapper.mapEmployeeToEmployeeResponseDTO(user.get().getEmployee());
-       }
-       throw new RuntimeException("Employee not found");
-    }
 
+    public EmployeeResponseDTO getEmployeeByUsername(String username) {
+        try {
+            Optional<User> user = userService.findByUsername(username);
+            System.out.println(user.get().getEmployee().getFirstname() + " " + user.get().getEmployee().getLastname());
+            if(user.isPresent()) {
+                return EmployeeMapper.mapEmployeeToEmployeeResponseDTO(user.get().getEmployee());
+            }
+            throw new RuntimeException("Employee not found");
+        }
+        catch (Exception e) {
+            throw new RuntimeException("Employee not found");
+        }
+
+    }
     public EmployeeResponseDTO createEmployee(Employee employee) {
         if(userService.findByUsername(employee.getUser().getUsername()).isEmpty()){
             try {
@@ -88,13 +95,33 @@ public class EmployeeService {
             throw new RuntimeException("Searching for employee process failed");
         }
     }
-    public Employee updateEmployee(Employee employee) {
+    private Employee getUsernameData(String username){
         try {
+            Optional<User> user = userService.findByUsername(username);
+            System.out.println(user.get().getEmployee().getFirstname() + " " + user.get().getEmployee().getLastname());
+            if(user.isPresent()) {
+                return user.get().getEmployee();
+            }
+            throw new RuntimeException("Employee not found");
+        }
+        catch (Exception e) {
+            throw new RuntimeException("Employee not found");
+        }
+    }
+
+    public EmployeeResponseDTO updateEmployee(Employee employee) {
+        try {
+            Employee employeeToUpdate =
+                    getUsernameData(employee
+                            .getUser()
+                            .getUsername());
+            employee.setId(employeeToUpdate.getId());
+            employee.setUser(employeeToUpdate.getUser());
             employeeRepository.save(employee);
             System.out.println("Employee updated");
-            return employee;
+            return EmployeeMapper.mapEmployeeToEmployeeResponseDTO(employee);
         }catch (Exception e) {
-            throw new RuntimeException("Updating employee process failed");
+            throw new RuntimeException(e.getMessage());
         }
     }
     public void deleteEmployee(long id) {

@@ -43,7 +43,6 @@ public class EmployeeController {
 
     @GetMapping("/user")
     ResponseEntity<EmployeeResponseDTO> getEmployeeByUsername(@RequestParam String username) {
-
         try{
             return ResponseEntity.ok().body(employeeService.getEmployeeByUsername(username));
         }
@@ -67,13 +66,15 @@ public class EmployeeController {
             return ResponseEntity.unprocessableEntity().body(e.getMessage());
         }
     }
-    @PutMapping("/{id}")
-    ResponseEntity<?> updateEmployee(@PathVariable Long id, @RequestBody EmployeeRequestDTO employeeRequestDTO) {
-
+    @PutMapping()
+    ResponseEntity<?> updateEmployee(@RequestBody EmployeeRequestDTO employeeRequestDTO) {
         try{
-
-            return ResponseEntity.ok(EmployeeMapper.mapEmployeeToEmployeeResponseDTO(employeeService.updateEmployee(EmployeeMapper.mapEmployeeRequestDTOToEmployee(employeeRequestDTO, id))));
-        } catch (Exception e) {
+            return ResponseEntity.ok(
+                            employeeService.updateEmployee(
+                                    EmployeeMapper.mapEmployeeRequestDTOToEmployee(
+                                            employeeRequestDTO)
+                            ));
+        }catch (Exception e){
             return ResponseEntity.unprocessableEntity().body(e.getMessage());
         }
     }
