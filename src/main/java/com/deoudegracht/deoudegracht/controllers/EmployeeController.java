@@ -6,14 +6,12 @@ import com.deoudegracht.deoudegracht.mappers.EmployeeMapper;
 import com.deoudegracht.deoudegracht.services.EmployeeService;
 
 import jakarta.validation.Valid;
-import jakarta.websocket.server.PathParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 
 import java.net.URI;
-import java.util.List;
 
 @RestController
 @RequestMapping("/employees")

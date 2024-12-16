@@ -13,6 +13,7 @@ public class Guest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ID;
     @OneToOne(cascade = CascadeType.ALL)
+    @NotNull
     @JoinColumn(name = "user_username", referencedColumnName = "username")
     User user;
 
@@ -20,6 +21,10 @@ public class Guest {
     private List<Reservation> reservations = new ArrayList<>();
 
     public Guest() {
+    }
+    public Guest(String firstname, String lastname, String email, String username, String password, String phone)
+    {
+        this.user = new User(username, password, firstname, lastname, email, phone);
     }
 
     public long getID() {

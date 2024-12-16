@@ -1,12 +1,17 @@
 package com.deoudegracht.deoudegracht.dtos;
 
-import com.deoudegracht.deoudegracht.models.Role;
+import com.deoudegracht.deoudegracht.models.Reservation;
+import com.deoudegracht.deoudegracht.models.User;
+
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
-import jakarta.validation.constraints.NotNull;
 
-public class EmployeeRequestDTO {
+import java.util.ArrayList;
+import java.util.List;
+
+public class GuestRequestDTO {
     @NotNull
     @Pattern(regexp = "^[a-zA-Z]+$", message = "Firstname should only contain letters")
     private String firstname;
@@ -21,17 +26,15 @@ public class EmployeeRequestDTO {
     @NotNull
     @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
-    private String role = "EMPLOYEE";
     private String phone = "not provided";
-    public EmployeeRequestDTO() {
-    }
-    public EmployeeRequestDTO(@NotNull String firstname, @NotNull String lastname, String email, @NotNull String username, @NotNull String password, String role, String phone) {
+
+    private List<Reservation> reservations = new ArrayList<>();
+    public GuestRequestDTO(@NotNull String firstname, @NotNull String lastname, String email, @NotNull String username, @NotNull String password, String phone) {
 
         this.firstname = firstname;
         this.lastname = lastname;
         this.username = username.toLowerCase();
         this.password = password;
-        this.role = role;
         this.email = email;
         this.phone = phone;
     }
@@ -76,19 +79,6 @@ public class EmployeeRequestDTO {
         this.password = password;
     }
 
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        try {
-            Role.valueOf(role);
-            this.role = role;
-        } catch (IllegalArgumentException e) {
-            throw new IllegalArgumentException("This role doesn't exist: " + role);
-        }
-    }
-
     public String getPhone() {
         return phone;
     }
@@ -97,8 +87,18 @@ public class EmployeeRequestDTO {
         this.phone = phone;
     }
 
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
     @Override
     public String toString() {
-        return firstname + " " + lastname + " " + email + " " + phone + " " + username +" " + role;
+        return firstname + " " + lastname + " " + email + " " + phone + " " + username;
     }
+
+
 }

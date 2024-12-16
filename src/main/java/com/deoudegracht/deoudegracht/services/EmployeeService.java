@@ -75,12 +75,12 @@ public class EmployeeService {
     public EmployeeResponseDTO updateEmployee(Employee newDataEmployee) {
         try {
             Optional<Employee> existingEmployeeOptional = employeeRepository.findByUser_Username(newDataEmployee.getUser().getUsername());
-            System.out.println(existingEmployeeOptional.get().getUser().getFirstname() + " " + existingEmployeeOptional.get().getUser().getLastname());
 
-            if (existingEmployeeOptional.isEmpty()) {
+            if (!existingEmployeeOptional.isPresent()) {
                 throw new RuntimeException("Employee not found");
             }
 
+            System.out.println(existingEmployeeOptional.get().getUser().getFirstname() + " " + existingEmployeeOptional.get().getUser().getLastname());
             Employee existingEmployee = existingEmployeeOptional.get();
             existingEmployee.getUser().setFirstname(newDataEmployee.getUser().getFirstname());
             existingEmployee.getUser().setLastname(newDataEmployee.getUser().getLastname());
