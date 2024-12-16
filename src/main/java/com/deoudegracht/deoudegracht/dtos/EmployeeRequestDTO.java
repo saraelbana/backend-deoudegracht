@@ -1,19 +1,23 @@
 package com.deoudegracht.deoudegracht.dtos;
 
+import com.deoudegracht.deoudegracht.models.Role;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import org.jetbrains.annotations.NotNull;
 
 public class EmployeeRequestDTO {
     @NotNull
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "Firstname should only contain letters")
     private String firstname;
     @NotNull
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "Lastname should only contain letters")
     private String lastname;
     @NotNull
-    @Email(message = "Please enter a valid email")
+    @Email(message = "Please enter a valid email format")
     private String email = "not provided";
-    @NotNull
+    @jakarta.validation.constraints.NotNull(message = "Username is required")
     private String username;
     @NotNull
     @Size(min = 8, message = "Password must be at least 8 characters long")
@@ -26,13 +30,12 @@ public class EmployeeRequestDTO {
 
         this.firstname = firstname;
         this.lastname = lastname;
-        this.username = username;
+        this.username = username.toLowerCase();
         this.password = password;
         this.role = role;
         this.email = email;
         this.phone = phone;
     }
-
 
     public String getFirstname() {
         return firstname;
@@ -77,12 +80,20 @@ public class EmployeeRequestDTO {
     public String getRole() {
         return role;
     }
+
     public void setRole(String role) {
-        this.role = role;
+        try {
+            Role.valueOf(role);
+            this.role = role;
+        } catch (IllegalArgumentException e) {
+            throw new IllegalArgumentException("This role doesn't exist: " + role);
+        }
     }
+
     public String getPhone() {
         return phone;
     }
+
     public void setPhone(String phone) {
         this.phone = phone;
     }

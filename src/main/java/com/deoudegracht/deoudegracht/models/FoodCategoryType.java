@@ -7,4 +7,8 @@ public enum FoodCategoryType {
     Drink,
     Salad,
     SideDish;
+
+    public String getFoodCategoryTypeName() {
+        return this.name();
+    }
 }

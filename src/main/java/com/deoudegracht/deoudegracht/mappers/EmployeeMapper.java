@@ -7,28 +7,27 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class EmployeeMapper {
+
+    static public Employee mapEmployeeRequestDTOToEmployee(EmployeeRequestDTO employeeRequestDTO){
+        return new Employee(employeeRequestDTO.getFirstname(), employeeRequestDTO.getLastname(), employeeRequestDTO.getEmail(), employeeRequestDTO.getUsername(), employeeRequestDTO.getPassword(), employeeRequestDTO.getRole(), employeeRequestDTO.getPhone());
+
+    }
     static public EmployeeResponseDTO mapEmployeeToEmployeeResponseDTO(Employee employee) {
         return new EmployeeResponseDTO(
                 employee.getId(),
-                employee.getFirstname(),
-                employee.getLastname(),
-                employee.getEmail(),
-                employee.getPhone(),
+                employee.getUser().getFirstname(),
+                employee.getUser().getLastname(),
+                employee.getUser().getEmail(),
                 employee.getUser().getUsername(),
-                employee.getUser().getRole());
+                employee.getRole().toString(),
+                employee.getUser().getPhone()
+        );
     }
-    static public Employee mapEmployeeRequestDTOToEmployee(EmployeeRequestDTO employeeRequestDTO){
-        return new Employee(
-                employeeRequestDTO.getFirstname(),
-                employeeRequestDTO.getLastname(),
-                employeeRequestDTO.getEmail(),
-                employeeRequestDTO.getPhone(),
-                employeeRequestDTO.getUsername(),
-                employeeRequestDTO.getPassword(),
-                employeeRequestDTO.getRole());
-    }
-    static public Employee mapEmployeeRequestDTOToEmployee(EmployeeRequestDTO employeeRequestDTO, long id){
-        return new Employee(mapEmployeeRequestDTOToEmployee(employeeRequestDTO), id);
+
+    static public Employee mapEmployeeRequestDTOToEmployee(EmployeeRequestDTO employeeRequestDTO, long id) {
+        Employee employee = mapEmployeeRequestDTOToEmployee(employeeRequestDTO);
+        employee.setId(id);
+        return employee;
     }
 
 }

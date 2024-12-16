@@ -5,6 +5,7 @@ import com.deoudegracht.deoudegracht.dtos.EmployeeResponseDTO;
 import com.deoudegracht.deoudegracht.mappers.EmployeeMapper;
 import com.deoudegracht.deoudegracht.services.EmployeeService;
 
+import jakarta.validation.Valid;
 import jakarta.websocket.server.PathParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +23,27 @@ public class EmployeeController {
     public EmployeeController(EmployeeService employeeService) {
         this.employeeService = employeeService;
     }
+
+    @PostMapping()
+    ResponseEntity<?>createEmployee(@Valid @RequestBody EmployeeRequestDTO employeeRequestDTO) {
+        try {
+            employeeRequestDTO.setUsername(employeeRequestDTO.getUsername().toLowerCase());
+            EmployeeResponseDTO newCreatedEmployeeDto = employeeService.createEmployee(EmployeeMapper.mapEmployeeRequestDTOToEmployee(employeeRequestDTO));
+            System.out.println("Hello there new Employee is created with ID number" + newCreatedEmployeeDto.getId());
+
+            URI uri = URI.create(ServletUriComponentsBuilder
+                    .fromCurrentRequest()
+                    .path("/" + newCreatedEmployeeDto.getUsername())
+                    .toUriString());
+
+            System.out.println("Employee is created");
+            return ResponseEntity.created(uri).body(newCreatedEmployeeDto);
+        }
+        catch (Exception e) {
+            System.out.println("error happened " + e.getMessage());
+            return ResponseEntity.unprocessableEntity().body(e.getMessage());
+        }
+    }
     @GetMapping
     ResponseEntity<?>/*<List<EmployeeResponseDTO>>*/ getAllEmployees() {
         try {
@@ -31,56 +53,34 @@ public class EmployeeController {
             return ResponseEntity.unprocessableEntity().body(e.getMessage());
         }
     }
-    @GetMapping("/{id}")
-    public ResponseEntity<EmployeeResponseDTO> getEmployeeById(@PathVariable("id") Long id) {
-        try {
-            EmployeeResponseDTO employeeResponseDTO = employeeService.getEmployeeById(id);
-            return ResponseEntity.ok().body(employeeResponseDTO);
-        } catch (Exception e) {
-            return ResponseEntity.notFound().build();
-        }
-    }
 
-    @GetMapping("/user")
-    ResponseEntity<EmployeeResponseDTO> getEmployeeByUsername(@RequestParam String username) {
-
+    @GetMapping("/{username}")
+    ResponseEntity<EmployeeResponseDTO> getEmployeeByUsername(@PathVariable String username /*@RequestParam String username*/) {
+        username = username.toLowerCase();
         try{
-            return ResponseEntity.ok().body(employeeService.getEmployeeByUsername(username));
+            return ResponseEntity.ok().body(employeeService.getEmployeeByUsername(username.toLowerCase()));
         }
         catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
     }
-
-    @PostMapping()
-    ResponseEntity<?>createEmployee(@RequestBody EmployeeRequestDTO employeeRequestDTO) {
+    @PutMapping
+    ResponseEntity<?> updateEmployee(@Valid @RequestBody EmployeeRequestDTO employeeRequestDTO) {
         try {
-            EmployeeResponseDTO newCreatedEmployeeDto = employeeService.createEmployee(EmployeeMapper.mapEmployeeRequestDTOToEmployee(employeeRequestDTO));
-            System.out.println("Hello there new Employee is created with ID number" + newCreatedEmployeeDto.getId());
-
-            URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentRequest().path("/" + newCreatedEmployeeDto.getId()).toUriString());
-            System.out.println("Employee is created");
-            return ResponseEntity.created(uri).body(newCreatedEmployeeDto);
-        }
-        catch (Exception e) {
+            return ResponseEntity.ok().body(
+                    employeeService.updateEmployee(
+                            EmployeeMapper.mapEmployeeRequestDTOToEmployee(
+                                    employeeRequestDTO)
+                    ));
+        } catch (Exception e) {
             System.out.println("error happened " + e.getMessage());
             return ResponseEntity.unprocessableEntity().body(e.getMessage());
         }
     }
-    @PutMapping("/{id}")
-    ResponseEntity<?> updateEmployee(@PathVariable Long id, @RequestBody EmployeeRequestDTO employeeRequestDTO) {
-
-        try{
-
-            return ResponseEntity.ok(EmployeeMapper.mapEmployeeToEmployeeResponseDTO(employeeService.updateEmployee(EmployeeMapper.mapEmployeeRequestDTOToEmployee(employeeRequestDTO, id))));
-        } catch (Exception e) {
-            return ResponseEntity.unprocessableEntity().body(e.getMessage());
-        }
-    }
-    @DeleteMapping("/{id}")
-    ResponseEntity<?> deleteEmployee(@PathVariable long  id) {
+    @DeleteMapping
+    ResponseEntity<?> deleteEmployee(@RequestParam String username) {
         try {
-            employeeService.deleteEmployee(id);
+            employeeService.deleteEmployee(username.toLowerCase());
             return ResponseEntity.ok().body("Employee deleted successfully");
         } catch (Exception e) {
             return ResponseEntity.unprocessableEntity().body(e.getMessage());

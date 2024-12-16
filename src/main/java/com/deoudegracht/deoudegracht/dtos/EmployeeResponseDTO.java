@@ -8,22 +8,29 @@ public class EmployeeResponseDTO {
     private String firstname;
     private String lastname;
     private String email;
-    private String phone;
-    private User user;
+    private String username;
     private String role;
+    private String phone;
 
-
-    public EmployeeResponseDTO(long id, String firstname, String lastname, String email, String phone, String username, String role) {
+    public EmployeeResponseDTO(long id, String firstname, String lastname,
+                               String email, String username, String role, String phone) {
+        this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
-        this.phone = phone;
-        this.user = new User(username,role);
-        this.id = id;
+        this.username = username;
         this.role = role;
-
+        this.phone = phone;
     }
     public EmployeeResponseDTO() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public String getFirstname() {
@@ -51,27 +58,25 @@ public class EmployeeResponseDTO {
     }
 
     public String getUsername() {
-        return user.getUsername();
+        return username;
     }
 
     public void setUsername(String username) {
-        this.user.setUsername(username);
+        this.username = username;
     }
-    public long getId() {
-        return this.id;
-    }
-    public void setId(long id) {
-        this.id = id;
-    }
+
     public String getRole() {
-        return this.role;
+        return role;
     }
+
     public void setRole(String role) {
         this.role = role;
     }
+
     public String getPhone() {
         return phone;
     }
+
     public void setPhone(String phone) {
         this.phone = phone;
     }

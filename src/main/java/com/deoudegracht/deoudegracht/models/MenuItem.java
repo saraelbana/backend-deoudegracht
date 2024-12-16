@@ -18,7 +18,7 @@ public class MenuItem {
     private String description;
     private double price;
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false, unique = true)
+    @Column(nullable = false)
     private FoodCategoryType category;
 
 
@@ -26,61 +26,17 @@ public class MenuItem {
     @JoinColumn(name = "recipe_id")
     private Recipe recipe;
 
-    public MenuItem(String name, String description, double price, String category) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-    }
-    public MenuItem(String name, String description, double price, String category, Recipe recipe) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.recipe = recipe;
-    }
+    @ManyToOne
+    @JoinColumn(name = "menu_id")
+    Menu menu = new Menu();
 
     public MenuItem() {
     }
-    public MenuItem(MenuItem menuItem, long id) {
-        this.name = menuItem.getName();
-        this.description = menuItem.getDescription();
-        this.price = menuItem.getPrice();
-        this.id = id;
-
-    }
-
-    public long getId() {
-        return id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public double getPrice() {
-        return price;
-    }
-
-
-    public void setName(String name) {
-        this.name = name;
-    }
-    public Recipe getRecipe() {
-        return recipe;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
     public void setPrice(double price) {
+        if (price < 0) {
+            throw new IllegalArgumentException("Price cannot be negative");
+        }
         this.price = price;
     }
 
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
-    }
 }

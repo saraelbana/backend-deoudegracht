@@ -1,8 +1,5 @@
 package com.deoudegracht.deoudegracht.dtos;
 
-import com.deoudegracht.deoudegracht.models.MenuItem;
-import com.deoudegracht.deoudegracht.models.RecipeItem;
-
 import java.util.ArrayList;
 import java.util.List;
 
