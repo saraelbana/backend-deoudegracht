@@ -1,6 +1,7 @@
 package com.deoudegracht.deoudegracht.services;
 
 import com.deoudegracht.deoudegracht.models.User;
+import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import com.deoudegracht.deoudegracht.repositories.UserRepository;
@@ -8,6 +9,7 @@ import com.deoudegracht.deoudegracht.repositories.UserRepository;
 import java.util.Optional;
 
 @Service
+@Transactional
 public class UserService {
     private  final UserRepository userRepository;
 

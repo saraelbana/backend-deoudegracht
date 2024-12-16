@@ -1,14 +1,52 @@
 package com.deoudegracht.deoudegracht.models;
 
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+
+import java.util.ArrayList;
+import java.util.List;
+
+@Entity
 public class Guest {
-    private Long ID;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long ID;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_username", referencedColumnName = "username")
+    User user;
+
+    @OneToMany(mappedBy = "guest")
+    private List<Reservation> reservations = new ArrayList<>();
+
     public Guest() {
     }
-    public Long getID() {
+
+    public long getID() {
         return ID;
     }
-    public void setID(Long ID) {
+
+    public void setID(long ID) {
         this.ID = ID;
     }
 
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    public void addReservation(Reservation reservation) {
+        this.reservations.add(reservation);
+    }
 }

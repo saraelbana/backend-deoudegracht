@@ -1,7 +1,5 @@
 package com.deoudegracht.deoudegracht.models;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -12,42 +10,36 @@ public class Recipe {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    long id;
+    private long id;
 
     @Column(unique = true)
     private String name;
 
     private String description;
-    @OneToOne(mappedBy = "recipe", optional = true, cascade = CascadeType.ALL)
-    @JsonManagedReference
-    @Nullable
-    MenuItem menuItem;
+
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
-    @JsonManagedReference
-    List<RecipeItem> recipeItems;
+    private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
+
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+    private List<InstructionStep> instructionSteps = new ArrayList<>();
+
+    @OneToOne(mappedBy = "recipe", optional = true, cascade = CascadeType.ALL)
+    private MenuItem menuItem = new MenuItem();
 
     public long getId() {
         return id;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getName() {
-        return name;
     }
 
     public void setId(long id) {
         this.id = id;
     }
 
-    public String getRecipeName() {
+    public String getName() {
         return name;
     }
 
-    public void setRecipeName(String recipeName) {
-        this.name = recipeName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getDescription() {
@@ -58,33 +50,34 @@ public class Recipe {
         this.description = description;
     }
 
+    public List<RecipeIngredient> getRecipeIngredients() {
+        return recipeIngredients;
+    }
+
+    public void setRecipeIngredients(List<RecipeIngredient> recipeIngredients) {
+        this.recipeIngredients = recipeIngredients;
+    }
+    public void addRecipeIngredient(RecipeIngredient recipeIngredient) {
+        recipeIngredients.add(recipeIngredient);
+    }
+    public List<InstructionStep> getRecipeInstructions() {
+        return instructionSteps;
+    }
+
+    public void setRecipeInstructions(List<InstructionStep> instructionSteps) {
+        this.instructionSteps = instructionSteps;
+    }
+    public void addInstructionStep(InstructionStep instructionStep) {
+        instructionSteps.add(instructionStep);
+    }
+    public List<InstructionStep> getInstructionSteps() {
+        return instructionSteps;
+    }
     public MenuItem getMenuItem() {
         return menuItem;
     }
 
     public void setMenuItem(MenuItem menuItem) {
         this.menuItem = menuItem;
-    }
-
-    public List<RecipeItem> getRecipeItems() {
-        return recipeItems;
-    }
-
-    public void setRecipeItems(List<RecipeItem> recipeItems) {
-        this.recipeItems = recipeItems;
-    }
-
-    public void addRecipeItem(RecipeItem item) {
-        if (this.recipeItems == null) {
-            this.recipeItems = new ArrayList<>();
-        }
-        this.recipeItems.add(item);
-        item.setRecipe(this);
-    }
-    public void removeRecipeItem(RecipeItem item) {
-        if (this.recipeItems != null) {
-            this.recipeItems.remove(item);
-        }
-        item.setRecipe(null);
     }
 }
