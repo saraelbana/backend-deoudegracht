@@ -1,6 +1,10 @@
 package com.deoudegracht.deoudegracht.models;
 
+import com.deoudegracht.deoudegracht.dtos.ReservationResponseDTO;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
+
 import java.time.LocalDate;
 import java.time.LocalTime;
 
@@ -10,16 +14,83 @@ public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long ID;
+    @Column(nullable = false)
     private LocalDate dateCreated;
+    @Column(nullable = false)
     private LocalDate reservationDate;
+    @Column(nullable = false)
     private LocalTime reservationTime;
+    @Column(nullable = false)
+    @Min(1)
+    @Max(15)
     private int numberOfPersons;
     @ManyToOne
     @JoinColumn(name = "guest_id")
     private Guest guest;
-
-
     public Reservation() {
     }
 
+    public Reservation(String username, LocalDate dateCreated, LocalDate reservationDate, LocalTime reservationTime, int numberOfPersons) {
+        this.dateCreated = dateCreated;
+        this.reservationDate = reservationDate;
+        this.reservationTime = reservationTime;
+        this.numberOfPersons = numberOfPersons;
+        // now i must have a guet model initialized before making a reservation
+        //while this is model class i will not initialize the guest model here
+        //i will just pass the username and let the service class to initialize the guest model
+        //should i call the service layer from here?
+        //this.guest = seachGuestByUsername(username);
+    }
+
+    public long getID() {
+        return ID;
+    }
+
+    public void setID(long ID) {
+        this.ID = ID;
+    }
+
+    public LocalDate getDateCreated() {
+        return dateCreated;
+    }
+
+    public void setDateCreated(LocalDate dateCreated) {
+        this.dateCreated = dateCreated;
+    }
+
+    public LocalDate getReservationDate() {
+        return reservationDate;
+    }
+
+    public void setReservationDate(LocalDate reservationDate) {
+        this.reservationDate = reservationDate;
+    }
+
+    public LocalTime getReservationTime() {
+        return reservationTime;
+    }
+
+    public void setReservationTime(LocalTime reservationTime) {
+        this.reservationTime = reservationTime;
+    }
+
+    public int getNumberOfPersons() {
+        return numberOfPersons;
+    }
+
+    public void setNumberOfPersons(int numberOfPersons) {
+        this.numberOfPersons = numberOfPersons;
+    }
+
+    public Guest getGuest() {
+        return guest;
+    }
+
+    public void setGuest(Guest guest) {
+        this.guest = guest;
+    }
+
+    public String getUsername() {
+        return this.guest.getUser().getUsername();
+    }
 }

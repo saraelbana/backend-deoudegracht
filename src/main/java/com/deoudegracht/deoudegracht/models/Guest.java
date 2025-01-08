@@ -35,6 +35,7 @@ public class Guest {
         this.ID = ID;
     }
 
+
     public User getUser() {
         return user;
     }

@@ -34,6 +34,7 @@ public class User {
     private String lastname;
 
     @Email(message = "Please enter a valid email format")
+    @NotNull
     private String email;
     //a REgExp to validate the phone number let's set it later
     // @Pattern(regexp = "^\\+?[1-9][0-9]{7,14}$", message = "Please enter a valid phone number")

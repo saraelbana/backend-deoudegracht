@@ -21,7 +21,7 @@ public class EmployeeRequestDTO {
     @NotNull
     @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
-    private String role = "EMPLOYEE";
+    private String role = "EMPLOYEE"; // by default an employee is created with the role EMPLOYEE
     private String phone = "not provided";
     public EmployeeRequestDTO() {
     }
