@@ -26,38 +26,35 @@ public class MenuItemService {
     }
 
     public List<MenuItemResponseDTO> getAllMenuItems() {
-//        try{
-//            List<MenuItemResponseDTO> menuItemResponseDTOList = new ArrayList<>();
-//            List <MenuItem> menuItemsList= menuItemRepository.findAll();
-//            for(MenuItem menuItem : menuItemsList) {
-//                menuItemResponseDTOList.add(new MenuItemResponseDTO(menuItem.getId(), menuItem.getName(), menuItem.getDescription(), menuItem.getPrice(), menuItem.getRecipe()));
-//            }
-//            return menuItemResponseDTOList;
-//        } catch (Exception e) {
-//            throw new RuntimeException("No menu items found");
-//        }
-        return null;
+        try{
+            List<MenuItemResponseDTO> menuItemResponseDTOList = new ArrayList<>();
+            List <MenuItem> menuItemsList= menuItemRepository.findAll();
+            for(MenuItem menuItem : menuItemsList) {
+                menuItemResponseDTOList.add(new MenuItemResponseDTO(menuItem.getId(), menuItem.getName(), menuItem.getDescription(), menuItem.getPrice(),menuItem.getCategory(), menuItem.getRecipeId()));
+            }
+            return menuItemResponseDTOList;
+        } catch (Exception e) {
+            throw new RuntimeException("No menu items found");
+        }
     }
 
     public MenuItemResponseDTO createMenuItem(MenuItem menuItem) {
-//        try {
-//            menuItemRepository.save(menuItem);
-//            return MenuItemMapper.mapMenuItemToMenuItemResponseDTO(menuItem);
-//        } catch (Exception e) {
-//            throw new RuntimeException("Creating menu item process failed");
-//        }
-        return null;
+        try {
+            menuItemRepository.save(menuItem);
+            return MenuItemMapper.mapMenuItemToMenuItemResponseDTO(menuItem);
+        } catch (Exception e) {
+            throw new RuntimeException("Creating menu item process failed");
+        }
     }
 
     public MenuItem updateMenuItem(MenuItem menuItem) {
-//        try {
-//            menuItemRepository.save(menuItem);
-//            System.out.println("MEnu Item updated, ID = " + menuItem.getId());
-//            return menuItem;
-//        } catch (Exception e) {
-//            throw new RuntimeException("Updating menu item process failed");
-//        }
-        return  null;
+        try {
+            menuItemRepository.save(menuItem);
+            System.out.println("Menu Item updated, ID = " + menuItem.getId());
+            return menuItem;
+        } catch (Exception e) {
+            throw new RuntimeException("Updating menu item process failed");
+        }
     }
 
     public void deleteMenuItem(long id) {

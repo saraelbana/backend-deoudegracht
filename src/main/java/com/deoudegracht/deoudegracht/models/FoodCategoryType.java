@@ -1,12 +1,13 @@
 package com.deoudegracht.deoudegracht.models;
 
 public enum FoodCategoryType {
-    Starter,
+    Appetizers,
     Dessert,
     MainCourse,
-    Drink,
+    Beverages,
     Salad,
-    SideDish;
+    SideDish,
+    OTHER;
 
     public String getFoodCategoryTypeName() {
         return this.name();

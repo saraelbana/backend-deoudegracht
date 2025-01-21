@@ -9,29 +9,93 @@ import jakarta.persistence.*;
 import jakarta.persistence.Table;
 
 @Entity
-@Table(name = "menu-item")
+@Table(name = "menu_item")
 public class MenuItem {
+
+    public MenuItem(String name, String description, double price, FoodCategoryType category, long recipeId) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.category = category;
+        this.recipeId = recipeId;
+    }
+
+    public MenuItem() {
+    }
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
+
     private String name;
+
     private String description;
+
     private double price;
+
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private FoodCategoryType category;
 
+    @Column(name = "recipe_id", nullable = false)
+    private long recipeId;
 
-    @OneToOne(optional = true, cascade = CascadeType.ALL)
-    @JoinColumn(name = "recipe_id")
-    private Recipe recipe;
+//    @ManyToOne
+//    @JoinColumn(name = "menu_id")
+//    Menu menu = new Menu();
 
-    @ManyToOne
-    @JoinColumn(name = "menu_id")
-    Menu menu = new Menu();
-
-    public MenuItem() {
+    public long getId() {
+        return id;
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    public FoodCategoryType getCategory() {
+        return category;
+    }
+
+    public void setCategory(FoodCategoryType category) {
+        this.category = category;
+    }
+
+//    public Menu getMenu() {
+//        return menu;
+//    }
+//
+//    public void setMenu(Menu menu) {
+//        this.menu = menu;
+//    }
+
+    public long getRecipeId() {
+        return recipeId;
+    }
+
+    public void setRecipeId(long recipeId) {
+        this.recipeId = recipeId;
+    }
+
     public void setPrice(double price) {
         if (price < 0) {
             throw new IllegalArgumentException("Price cannot be negative");

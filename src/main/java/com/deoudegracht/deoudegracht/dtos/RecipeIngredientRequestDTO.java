@@ -2,16 +2,15 @@ package com.deoudegracht.deoudegracht.dtos;
 
 import com.deoudegracht.deoudegracht.models.Recipe;
 
-public class RecipeItemRequestDTO {
+public class RecipeIngredientRequestDTO {
     private String name;
     private float quantity;
     private String unit;
-    private Recipe recipe;
 
-    public RecipeItemRequestDTO() {
+    public RecipeIngredientRequestDTO() {
     }
 
-    public RecipeItemRequestDTO(String name, float quantity, String unit) {
+    public RecipeIngredientRequestDTO(String name, float quantity, String unit) {
         this.name = name;
         this.quantity = quantity;
         this.unit = unit;
@@ -29,7 +28,4 @@ public class RecipeItemRequestDTO {
         return unit;
     }
 
-    public Recipe getRecipe() {
-        return recipe;
-    }
 }

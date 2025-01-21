@@ -1,7 +1,7 @@
 package com.deoudegracht.deoudegracht.services;
 
 import com.deoudegracht.deoudegracht.dtos.RecipeItemResponseDTO;
-import com.deoudegracht.deoudegracht.mappers.RecipeItemMapper;
+import com.deoudegracht.deoudegracht.mappers.RecipeIngredientMapper;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

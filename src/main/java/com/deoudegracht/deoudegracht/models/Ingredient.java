@@ -12,8 +12,14 @@ public class Ingredient {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     long id;
 
+    @Column(unique = true, nullable = false)
     private String name;
 
+    public Ingredient() {
+    }
+    public Ingredient(String name) {
+        this.name = name;
+    }
     @OneToMany(mappedBy = "ingredient")
     private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 

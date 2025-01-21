@@ -27,6 +27,9 @@ public class Reservation {
     @ManyToOne
     @JoinColumn(name = "guest_id")
     private Guest guest;
+    @ManyToOne
+    @JoinColumn(name = "user_id") // Matches the foreign key column in your database
+    private User user;
     public Reservation() {
     }
 

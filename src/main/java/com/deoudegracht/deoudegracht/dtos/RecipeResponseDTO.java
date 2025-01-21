@@ -7,8 +7,19 @@ public class RecipeResponseDTO {
     private long id;
     private String recipeName;
     private String description;
+    private String category;
     private MenuItemResponseDTO menuItem;
     private List<RecipeItemResponseDTO> recipeItems = new ArrayList<>();
+
+    public List<String> getInstructionSteps() {
+        return instructionSteps;
+    }
+
+    public void setInstructionSteps(List<String> instructionSteps) {
+        this.instructionSteps = instructionSteps;
+    }
+
+    private List<String> instructionSteps = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -44,5 +55,13 @@ public class RecipeResponseDTO {
 
     public void setMenuItem(MenuItemResponseDTO menuItem) {
         this.menuItem = menuItem;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
     }
 }

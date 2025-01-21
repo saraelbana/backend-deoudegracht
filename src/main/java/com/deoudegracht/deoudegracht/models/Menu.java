@@ -30,6 +30,6 @@ public class Menu {
         this.lastEditDate = lastEditDate;
     }
 
-    @OneToMany(mappedBy = "menu")
-    private List<MenuItem> menuItems= new ArrayList<>();
+//    @OneToMany(mappedBy = "menu")
+//    private List<MenuItem> menuItems= new ArrayList<>();
 }

@@ -17,14 +17,15 @@ public class Recipe {
 
     private String description;
 
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+    @Enumerated(EnumType.STRING)
+    private FoodCategoryType category;
+
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
-    private List<InstructionStep> instructionSteps = new ArrayList<>();
-
-    @OneToOne(mappedBy = "recipe", optional = true, cascade = CascadeType.ALL)
-    private MenuItem menuItem = new MenuItem();
+    private List<InstructionStep> instructionsSteps = new ArrayList<>();
+    
 
     public long getId() {
         return id;
@@ -61,23 +62,31 @@ public class Recipe {
         recipeIngredients.add(recipeIngredient);
     }
     public List<InstructionStep> getRecipeInstructions() {
-        return instructionSteps;
+        return instructionsSteps;
     }
 
     public void setRecipeInstructions(List<InstructionStep> instructionSteps) {
-        this.instructionSteps = instructionSteps;
+        this.instructionsSteps = instructionSteps;
     }
     public void addInstructionStep(InstructionStep instructionStep) {
-        instructionSteps.add(instructionStep);
+        instructionsSteps.add(instructionStep);
     }
-    public List<InstructionStep> getInstructionSteps() {
-        return instructionSteps;
+    public List<InstructionStep> getInstructionsSteps() {
+        return instructionsSteps;
     }
-    public MenuItem getMenuItem() {
-        return menuItem;
+    public FoodCategoryType getCategory() {
+        return category;
     }
 
-    public void setMenuItem(MenuItem menuItem) {
-        this.menuItem = menuItem;
+    public void setCategory(FoodCategoryType category) {
+        this.category = category;
     }
+
+//    public MenuItem getMenuItem() {
+//        return menuItem;
+//    }
+//
+//    public void setMenuItem(MenuItem menuItem) {
+//        this.menuItem = menuItem;
+//    }
 }

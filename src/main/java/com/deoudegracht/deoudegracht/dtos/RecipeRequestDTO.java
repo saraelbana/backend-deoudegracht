@@ -1,15 +1,44 @@
 package com.deoudegracht.deoudegracht.dtos;
 
-import com.deoudegracht.deoudegracht.models.MenuItem;
-import jakarta.annotation.Nullable;
+import com.deoudegracht.deoudegracht.models.FoodCategoryType;
+import com.deoudegracht.deoudegracht.models.InstructionStep;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RecipeRequestDTO {
     private String recipeName;
     private String description;
+    private String category = "OTHER";
+    private List<RecipeIngredientRequestDTO> recipeIngredients = new ArrayList<>();
+    private List<InstructionStepRequestDTO> instructionsSteps = new ArrayList<>();
 
-    private List<RecipeItemRequestDTO> recipeItemsRequestDTO;
+    public RecipeRequestDTO() {
+    }
+
+    public RecipeRequestDTO(String recipeName, String description, String category, List<RecipeIngredientRequestDTO> recipeIngredients, List<InstructionStepRequestDTO> instructionsSteps) {
+        this.recipeName = recipeName;
+        this.description = description;
+        this.category = category;
+        this.recipeIngredients = recipeIngredients;
+        this.instructionsSteps = instructionsSteps;
+    }
+
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
+    public List<InstructionStepRequestDTO> getInstructionSteps() {
+        return instructionsSteps;
+    }
+
+    public void setInstructionSteps(List<InstructionStepRequestDTO> instructionsSteps) {
+        this.instructionsSteps = instructionsSteps;
+    }
 
     public String getRecipeName() {
         return recipeName;
@@ -19,8 +48,8 @@ public class RecipeRequestDTO {
         this.recipeName = recipeName;
     }
 
-    public void setRecipeItems(List<RecipeItemRequestDTO> recipeItems) {
-        this.recipeItemsRequestDTO = recipeItems;
+    public void setRecipeIngredients(List<RecipeIngredientRequestDTO> recipeItems) {
+        this.recipeIngredients = recipeItems;
     }
 
     public String getDescription() {
@@ -30,7 +59,7 @@ public class RecipeRequestDTO {
     public void setDescription(String description) {
         this.description = description;
     }
-    public List<RecipeItemRequestDTO> getRecipeItems() {
-        return recipeItemsRequestDTO;
+    public List<RecipeIngredientRequestDTO> getRecipeIngredients() {
+        return recipeIngredients;
     }
 }

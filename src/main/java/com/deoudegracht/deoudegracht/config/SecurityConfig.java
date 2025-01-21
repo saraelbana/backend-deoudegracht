@@ -1,9 +1,7 @@
 package com.deoudegracht.deoudegracht.config;
 
-import com.deoudegracht.deoudegracht.security.JwtRequestFilter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
@@ -29,21 +27,17 @@ import java.util.Arrays;
 @Configuration
 public class SecurityConfig {
     private final DataSource dataSource;
-    //private final JwtRequestFilter jwtRequestFilter;
 
     public SecurityConfig(DataSource dataSource) {
-        //this.jwtRequestFilter = jwtRequestFilter;
         this.dataSource = dataSource;
     }
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
     }
-
     @Bean
     public UserDetailsService userDetailsService(PasswordEncoder encoder){
         InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-
         UserDetails user = User.withUsername("sara")
                 .password(encoder.encode("password"))
                 .roles("CHEF")
@@ -66,7 +60,6 @@ public class SecurityConfig {
         //A rest API is stateless, so we don't need to create a session
         return http.build();
     }
-
     @Bean
     public CorsFilter corsFilter() {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
@@ -78,8 +71,19 @@ public class SecurityConfig {
         source.registerCorsConfiguration("/**", config);
         return new CorsFilter(source);
     }
-
-//    @Bean
+    @Bean
+    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
+        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
+        authenticationManagerBuilder.jdbcAuthentication().dataSource(dataSource)
+                .usersByUsernameQuery("SELECT username, password, enabled" +
+                        " FROM users" +
+                        " WHERE username=?")
+                .authoritiesByUsernameQuery("SELECT username, authority" +
+                        " FROM authorities " +
+                        " WHERE username=?");
+        return authenticationManagerBuilder.build();
+    }
+    //    @Bean
 //    protected SecurityFilterChain filter (HttpSecurity http) throws Exception {
 //
 //        http
@@ -97,18 +101,4 @@ public class SecurityConfig {
 //                .and().sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 //        return http.build();
 //    }
-
-    @Bean
-    public AuthenticationManager authManager(HttpSecurity http) throws Exception {
-        AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
-        authenticationManagerBuilder.jdbcAuthentication().dataSource(dataSource)
-                .usersByUsernameQuery("SELECT username, password, enabled" +
-                        " FROM users" +
-                        " WHERE username=?")
-                .authoritiesByUsernameQuery("SELECT username, authority" +
-                        " FROM authorities " +
-                        " WHERE username=?");
-        return authenticationManagerBuilder.build();
-    }
-
 }

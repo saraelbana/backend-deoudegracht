@@ -1,5 +1,6 @@
 package com.deoudegracht.deoudegracht.dtos;
 
+import com.deoudegracht.deoudegracht.models.FoodCategoryType;
 import com.deoudegracht.deoudegracht.models.Recipe;
 
 public class MenuItemResponseDTO {
@@ -8,15 +9,15 @@ public class MenuItemResponseDTO {
     private double price;
     private String category;
     private long id;
-    private Recipe recipe;
+    private long recipeId;
 
-    public MenuItemResponseDTO(long id, String name, String description, double price, Recipe recipe) {
+    public MenuItemResponseDTO(long id, String name, String description, double price, FoodCategoryType category, long recipeId) {
         this.name = name;
         this.description = description;
         this.price = price;
-        this.category = category;
+        this.category = category.toString();
         this.id = id;
-        this.recipe = recipe;
+        this.recipeId = recipeId;
     }
 
     public MenuItemResponseDTO() {
@@ -59,12 +60,13 @@ public class MenuItemResponseDTO {
         this.category = category;
     }
 
-    public Recipe getRecipe() {
-        return recipe;
+    public long getRecipeId() {
+        return recipeId;
     }
 
-    public void setRecipe(Recipe recipe) {
-        this.recipe = recipe;
+    public void setRecipeId(long recipeId) {
+        this.recipeId = recipeId;
     }
+
 
 }
