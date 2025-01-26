@@ -19,27 +19,26 @@ public class RecipeMapper {
         recipeResponseDTO.setDescription(recipe.getDescription());
         recipeResponseDTO.setCategory(recipe.getCategory().toString());
 
-        for(int i = 0; i < recipe.getRecipeIngredients().size(); i++){
-            recipeResponseDTO.getRecipeItems().add(RecipeIngredientMapper.mapRecipeItemToRecipeItemResponseDTO(recipe.getRecipeIngredients().get(i)));
+        for (RecipeIngredient recipeIngredient : recipe.getRecipeIngredients()) {
+            recipeResponseDTO.setRecipeIngredients(RecipeIngredientMapper.mapRecipeIngredientToRecipeIngredientResponseDTO(recipeIngredient));
         }
-        for(int i = 0; i < recipe.getInstructionsSteps().size(); i++){
-            recipeResponseDTO.getInstructionSteps().add(recipe.getInstructionsSteps().get(i).getInstruction());
+        for (InstructionStep instructionStep : recipe.getInstructionsSteps()) {
+            recipeResponseDTO.setInstructionSteps(InstructionStepMapper.mapInstructionStepToInstructionStepResponseDTO(instructionStep));
         }
-        //recipeResponseDTO.setMenuItem(MenuItemMapper.mapMenuItemToMenuItemResponseDTO(recipe.getMenuItem()));
         return recipeResponseDTO;
     }
 
     public static Recipe mapRecipeRequestDTOToRecipe(RecipeRequestDTO recipeRequestDTO) {
-        Recipe recipe = new Recipe();
-        recipe.setName(recipeRequestDTO.getRecipeName());
-        recipe.setDescription(recipeRequestDTO.getDescription());
-        recipe.setCategory(FoodCategoryType.valueOf(recipeRequestDTO.getCategory()));
+        //public Recipe(String name, String description, FoodCategoryType category, List<RecipeIngredient> recipeIngredients, List<InstructionStep> instructionsSteps)
+        Recipe recipe = new Recipe(recipeRequestDTO.getRecipeName(),recipeRequestDTO.getDescription(), FoodCategoryType.valueOf(recipeRequestDTO.getCategory()));
 
         List<RecipeIngredient> recipeItemsList = new ArrayList<>();
         List<InstructionStep> instructionsStepsList = new ArrayList<>();
+        recipe.setRecipeIngredients(recipeItemsList);
+        recipe.setRecipeInstructions(instructionsStepsList);
 
         for(int i = 0; i < recipeRequestDTO.getRecipeIngredients().size(); i++){
-            recipeItemsList.add(RecipeIngredientMapper.mapRecipeItemRequestDTOToRecipeItem(recipeRequestDTO.getRecipeIngredients().get(i)));
+            recipeItemsList.add(RecipeIngredientMapper.mapRecipeIngredientRequestDTOToRecipeIngredient(recipeRequestDTO.getRecipeIngredients().get(i)));
         }
         recipe.setRecipeIngredients(recipeItemsList);
 

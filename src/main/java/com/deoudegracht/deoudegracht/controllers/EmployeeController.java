@@ -62,8 +62,18 @@ public class EmployeeController {
             return ResponseEntity.notFound().build();
         }
     }
-    @PutMapping
-    ResponseEntity<?> updateEmployee(@Valid @RequestBody EmployeeRequestDTO employeeRequestDTO) {
+//    @GetMapping
+//    ResponseEntity<EmployeeResponseDTO> getEmployeeByUsername(@PathVariable String username /*@RequestParam String username*/) {
+//        username = username.toLowerCase();
+//        try{
+//            return ResponseEntity.ok().body(employeeService.getEmployeeByUsername(username.toLowerCase()));
+//        }
+//        catch (Exception e) {
+//            return ResponseEntity.notFound().build();
+//        }
+//    }
+    @PutMapping("/{username}")
+    ResponseEntity<?> updateEmployee(@PathVariable String username, @RequestBody EmployeeRequestDTO employeeRequestDTO) {
         try {
             return ResponseEntity.ok().body(
                     employeeService.updateEmployee(

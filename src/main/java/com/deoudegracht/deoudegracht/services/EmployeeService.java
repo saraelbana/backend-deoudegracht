@@ -4,11 +4,16 @@ import com.deoudegracht.deoudegracht.dtos.EmployeeResponseDTO;
 import com.deoudegracht.deoudegracht.mappers.EmployeeMapper;
 import com.deoudegracht.deoudegracht.models.Employee;
 import com.deoudegracht.deoudegracht.repositories.EmployeeRepository;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
+//2 successfull integration testing
+// 2 classes from service layer with
+// 100% coverage
+//minimal 10 unit tests
 @Service
 @Transactional // Transactional is used to rollback the transaction in case of exception
 //If any operation within the transaction fails, all changes are rolled back (like they never happened)
@@ -86,8 +91,8 @@ public class EmployeeService {
             existingEmployee.getUser().setLastname(newDataEmployee.getUser().getLastname());
             existingEmployee.getUser().setEmail(newDataEmployee.getUser().getEmail());
             existingEmployee.getUser().setPhone(newDataEmployee.getUser().getPhone());
-            existingEmployee.getUser().setPassword(newDataEmployee.getUser().getPassword());
-            existingEmployee.getUser().setUsername(newDataEmployee.getUser().getUsername());
+            //existingEmployee.getUser().setPassword(newDataEmployee.getUser().getPassword());
+            //existingEmployee.getUser().setUsername(newDataEmployee.getUser().getUsername());
             existingEmployee.setRole(newDataEmployee.getRole());
             System.out.println(existingEmployee.getUser().getFirstname() + " " + existingEmployee.getUser().getLastname());
 
@@ -103,15 +108,20 @@ public class EmployeeService {
     public void deleteEmployee(String username) {
 
         Optional<Employee> employee = employeeRepository.findByUser_Username(username);
-        if (employee.isEmpty()) {
-            throw new RuntimeException("Employee not found");
+//        if (employee.isEmpty()) {
+//            throw new RuntimeException("Employee not found");
+//        } else {
+//            try {
+//                employeeRepository.deleteById(employee.get().getId());
+//                System.out.println("Employee deleted");
+//            } catch (Exception e) {
+//                throw new RuntimeException("Deleting employee process failed");
+//            }
+//        }
+        if (employee.isPresent()) {
+            employeeRepository.deleteById(employee.get().getId());
         } else {
-            try {
-                employeeRepository.deleteById(employee.get().getId());
-                System.out.println("Employee deleted");
-            } catch (Exception e) {
-                throw new RuntimeException("Deleting employee process failed");
-            }
+            throw new EntityNotFoundException("Employee not found with username: " + username);
         }
     }
 }

@@ -19,13 +19,10 @@ import java.util.Optional;
 public class RecipeService {
     final private RecipeRepository recipeRepository;
     final private IngredientRepository ingredientRepository;
-
-
     public RecipeService(RecipeRepository recipeRepository, IngredientRepository ingredientRepository) {
         this.recipeRepository = recipeRepository;
         this.ingredientRepository = ingredientRepository;
     }
-
     @Transactional(readOnly = true)
     public List<RecipeResponseDTO> getAllRecipes() {
         try{

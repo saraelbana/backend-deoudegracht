@@ -1,15 +1,15 @@
 package com.deoudegracht.deoudegracht.dtos;
 
-public class RecipeItemResponseDTO {
+public class RecipeIngredientResponseDTO {
     private long id;
     private String name;
     private float quantity;
     private String unit;
 
-    public RecipeItemResponseDTO() {
+    public RecipeIngredientResponseDTO() {
     }
 
-    public RecipeItemResponseDTO(long id, String name, float quantity, String unit) {
+    public RecipeIngredientResponseDTO(long id, String name, float quantity, String unit) {
         this.id = id;
         this.name = name;
         this.quantity = quantity;

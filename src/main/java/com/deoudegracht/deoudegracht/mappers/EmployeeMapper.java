@@ -1,8 +1,11 @@
 package com.deoudegracht.deoudegracht.mappers;
 
+
 import com.deoudegracht.deoudegracht.dtos.EmployeeRequestDTO;
 import com.deoudegracht.deoudegracht.dtos.EmployeeResponseDTO;
 import com.deoudegracht.deoudegracht.models.Employee;
+import com.deoudegracht.deoudegracht.models.User;
+import com.deoudegracht.deoudegracht.models.Role;
 import org.springframework.stereotype.Component;
 
 @Component
@@ -24,10 +27,11 @@ public class EmployeeMapper {
         );
     }
 
-    static public Employee mapEmployeeRequestDTOToEmployee(EmployeeRequestDTO employeeRequestDTO, long id) {
-        Employee employee = mapEmployeeRequestDTOToEmployee(employeeRequestDTO);
-        employee.setId(id);
-        return employee;
-    }
+
+//    static public Employee mapEmployeeRequestDTOToEmployee(EmployeeRequestDTO employeeRequestDTO, long id) {
+//        Employee employee = mapEmployeeRequestDTOToEmployee(employeeRequestDTO);
+//        employee.setId(id);
+//        return employee;
+//    }
 
 }

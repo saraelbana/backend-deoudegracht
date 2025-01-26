@@ -24,7 +24,6 @@ public class InstructionStep {
     }
 
     public InstructionStep() {
-
     }
 
     public long getId() {

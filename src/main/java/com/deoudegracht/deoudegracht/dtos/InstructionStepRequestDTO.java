@@ -2,10 +2,8 @@ package com.deoudegracht.deoudegracht.dtos;
 
 public class InstructionStepRequestDTO {
 
-    // No-argument constructor
-    public InstructionStepRequestDTO() {}
-
     private String instruction;
+    public InstructionStepRequestDTO() {}
 
     public String getInstruction() {
         return instruction;
@@ -17,5 +15,12 @@ public class InstructionStepRequestDTO {
 
     public InstructionStepRequestDTO(String instruction) {
         this.instruction = instruction;
+    }
+
+    @Override
+    public String toString() {
+        return "InstructionStepRequestDTO{" +
+                "instruction='" + instruction + '\'' +
+                '}';
     }
 }

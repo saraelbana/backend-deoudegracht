@@ -20,7 +20,7 @@ public class EmployeeRequestDTO {
     private String username;
     @NotNull
     @Size(min = 8, message = "Password must be at least 8 characters long")
-    private String password;
+    private String password = "not provided";
     private String role = "EMPLOYEE"; // by default an employee is created with the role EMPLOYEE
     private String phone = "not provided";
     public EmployeeRequestDTO() {
@@ -31,6 +31,15 @@ public class EmployeeRequestDTO {
         this.lastname = lastname;
         this.username = username.toLowerCase();
         this.password = password;
+        this.role = role;
+        this.email = email;
+        this.phone = phone;
+    }
+    public EmployeeRequestDTO(@NotNull String firstname, @NotNull String lastname, String email, @NotNull String username, String role, String phone) {
+
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.username = username.toLowerCase();
         this.role = role;
         this.email = email;
         this.phone = phone;
@@ -55,6 +64,7 @@ public class EmployeeRequestDTO {
     public String getEmail() {
         return email;
     }
+
 
     public void setEmail(String email) {
         this.email = email;

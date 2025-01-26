@@ -25,7 +25,18 @@ public class Recipe {
 
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private List<InstructionStep> instructionsSteps = new ArrayList<>();
-    
+
+    public Recipe(String name, String description, FoodCategoryType category) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.category = category;
+        this.recipeIngredients = recipeIngredients;
+        this.instructionsSteps = instructionsSteps;
+    }
+
+    public Recipe() {
+    }
 
     public long getId() {
         return id;

@@ -1,5 +1,6 @@
 package com.deoudegracht.deoudegracht.services;
 
+
 import com.deoudegracht.deoudegracht.models.User;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;
@@ -22,6 +23,19 @@ public class UserService {
         }
         catch (Exception e) {
             throw new RuntimeException("User not found");
+        }
+    }
+    public User createUser(User user) {
+        String username = user.getUsername();
+        if (findByUsername(username).isPresent()) {
+            throw new RuntimeException("Username already exists");
+        }
+        try
+        {
+            return userRepository.save(user);
+        }
+        catch (Exception e) {
+            throw new RuntimeException("Failed to create user: " + e.getMessage());
         }
     }
 

@@ -1,5 +1,7 @@
 package com.deoudegracht.deoudegracht.dtos;
 
+import com.deoudegracht.deoudegracht.models.InstructionStep;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,17 +11,10 @@ public class RecipeResponseDTO {
     private String description;
     private String category;
     private MenuItemResponseDTO menuItem;
-    private List<RecipeItemResponseDTO> recipeItems = new ArrayList<>();
+    private List<InstructionStepResponseDTO> instructionSteps = new ArrayList<>();
+    private List<RecipeIngredientResponseDTO> recipeIngredients = new ArrayList<>();
 
-    public List<String> getInstructionSteps() {
-        return instructionSteps;
-    }
 
-    public void setInstructionSteps(List<String> instructionSteps) {
-        this.instructionSteps = instructionSteps;
-    }
-
-    private List<String> instructionSteps = new ArrayList<>();
 
     public long getId() {
         return id;
@@ -36,32 +31,32 @@ public class RecipeResponseDTO {
     public void setRecipeName(String recipeName) {
         this.recipeName = recipeName;
     }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public List<RecipeItemResponseDTO> getRecipeItems() {
-        return recipeItems;
-    }
-
     public void setDescription(String description) {
         this.description = description;
     }
-
-    public void setRecipeItems(List<RecipeItemResponseDTO> recipeItems) {
-        this.recipeItems = recipeItems;
+    public void setRecipeIngredients(RecipeIngredientResponseDTO recipeIngredients) {
+        this.recipeIngredients.add(recipeIngredients);
     }
-
-    public void setMenuItem(MenuItemResponseDTO menuItem) {
-        this.menuItem = menuItem;
+    public void setInstructionSteps(InstructionStepResponseDTO instructionSteps) {
+        this.instructionSteps.add(instructionSteps);
     }
-
-    public String getCategory() {
-        return category;
-    }
-
     public void setCategory(String category) {
         this.category = category;
     }
+    public void setMenuItem(MenuItemResponseDTO menuItem) {
+        this.menuItem = menuItem;
+    }
+    public String getCategory() {
+        return category;
+    }
+    public String getDescription() {
+        return description;
+    }
+    public List<RecipeIngredientResponseDTO> getRecipeIngredients() {
+        return recipeIngredients;
+    }
+    public List<InstructionStepResponseDTO> getInstructionSteps() {
+        return instructionSteps;
+    }
+
 }

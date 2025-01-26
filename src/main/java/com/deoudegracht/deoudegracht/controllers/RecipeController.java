@@ -42,6 +42,7 @@ public class RecipeController {
     @PostMapping
     ResponseEntity<?>createRecipe(@RequestBody RecipeRequestDTO recipeRequestDTO) {
         try {
+            System.out.println("hello there from recipe controller" + recipeRequestDTO.toString());
             RecipeResponseDTO newCreatedRecipeDto = recipeService.createRecipe(RecipeMapper.mapRecipeRequestDTOToRecipe(recipeRequestDTO));
             System.out.println("Hello there here we are Recipe with ID number" + newCreatedRecipeDto.getId());
 
@@ -69,7 +70,6 @@ public class RecipeController {
 //    }
     @PutMapping("/{id}")
     ResponseEntity<?> updateRecipe(@PathVariable Long id, @RequestBody RecipeRequestDTO recipeRequestDTO) {
-
         try{
 
             return ResponseEntity.ok(RecipeMapper.mapRecipeToRecipeResponseDTO(recipeService.updateRecipe(RecipeMapper.mapRecipeRequestDTOToRecipe(recipeRequestDTO, id))));

@@ -16,6 +16,15 @@ public class RecipeIngredientRequestDTO {
         this.unit = unit;
     }
 
+    @Override
+    public String toString() {
+        return "RecipeIngredientRequestDTO{" +
+                "name='" + name + '\'' +
+                ", quantity=" + quantity +
+                ", unit='" + unit + '\'' +
+                '}';
+    }
+
     public String getName() {
         return name;
     }
