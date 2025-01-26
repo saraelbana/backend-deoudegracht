@@ -30,6 +30,12 @@ public class RecipeIngredient {
         this.quantity = quantity;
         this.unit = unit;
     }
+    public RecipeIngredient(Recipe recipe, Ingredient ingredient, float quantity, String unit) {
+        this.recipe = recipe;
+        this.ingredient = ingredient;
+        this.quantity = quantity;
+        this.unit = unit;
+    }
 
     public void setId(long id) {
         this.id = id;

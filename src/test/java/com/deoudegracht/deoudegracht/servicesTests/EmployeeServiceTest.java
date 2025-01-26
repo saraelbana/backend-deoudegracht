@@ -32,7 +32,7 @@ public class EmployeeServiceTest {
     @Test
     public void testCreateEmployee() {
         //given
-        String username = "test.create.username";
+        String username = "testCreateUsername";
         Employee employee = new Employee();
         employee.setUser(new User(username, "testingPassword", "firstname", "lastname", "test@test.com", "phone"));
         employee.setRole(Role.EMPLOYEE);
@@ -54,8 +54,8 @@ public class EmployeeServiceTest {
     @Test
     public void testGetEmployeeByUsername(){
         //given
-        String username = "test.get.username";
-        String expectedUsername = "test.get.username";
+        String username = "testGetUsername";
+        String expectedUsername = "testGetUsername";
         Employee employee = new Employee();
         employee.setUser(new User(username, "testingPassword", "firstname", "lastname", "test@test.com", "phone"));
         employee.setRole(Role.EMPLOYEE);
@@ -72,7 +72,7 @@ public class EmployeeServiceTest {
    @Test
     public void testUpdateEmployee() {
        //given
-       String uniqueUsername = "test.update.username";
+       String uniqueUsername = "testUpdateUsername";
        Employee oldEmployeeData = new Employee();
        oldEmployeeData.setUser(new User(uniqueUsername, "testingPasswordOld", "firstnameOld", "lastnameOld", "oldTest@oldtest.com", "phone.old"));
        oldEmployeeData.setRole(Role.EMPLOYEE);

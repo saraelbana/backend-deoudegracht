@@ -46,7 +46,6 @@ public class RecipeService {
             throw new RuntimeException("Recipe not found");
         }
     }
-
     public RecipeResponseDTO createRecipe(Recipe recipe) {
         try {
             for (RecipeIngredient recipeIngredient : recipe.getRecipeIngredients()) {
@@ -72,7 +71,6 @@ public class RecipeService {
             throw new RuntimeException("Creating recipe process failed");
         }
     }
-
     public Recipe updateRecipe(Recipe recipe) {
         try {
             recipeRepository.save(recipe);

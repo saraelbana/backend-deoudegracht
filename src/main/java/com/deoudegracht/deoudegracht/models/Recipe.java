@@ -27,45 +27,36 @@ public class Recipe {
     private List<InstructionStep> instructionsSteps = new ArrayList<>();
 
     public Recipe(String name, String description, FoodCategoryType category) {
-        this.id = id;
         this.name = name;
         this.description = description;
         this.category = category;
-        this.recipeIngredients = recipeIngredients;
-        this.instructionsSteps = instructionsSteps;
     }
-
+    public Recipe(String name) {
+        this.name = name;
+    }
     public Recipe() {
     }
-
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
-
     public String getName() {
         return name;
     }
-
     public void setName(String name) {
         this.name = name;
     }
-
     public String getDescription() {
         return description;
     }
-
     public void setDescription(String description) {
         this.description = description;
     }
-
     public List<RecipeIngredient> getRecipeIngredients() {
         return recipeIngredients;
     }
-
     public void setRecipeIngredients(List<RecipeIngredient> recipeIngredients) {
         this.recipeIngredients = recipeIngredients;
     }
@@ -75,7 +66,6 @@ public class Recipe {
     public List<InstructionStep> getRecipeInstructions() {
         return instructionsSteps;
     }
-
     public void setRecipeInstructions(List<InstructionStep> instructionSteps) {
         this.instructionsSteps = instructionSteps;
     }
@@ -88,7 +78,6 @@ public class Recipe {
     public FoodCategoryType getCategory() {
         return category;
     }
-
     public void setCategory(FoodCategoryType category) {
         this.category = category;
     }

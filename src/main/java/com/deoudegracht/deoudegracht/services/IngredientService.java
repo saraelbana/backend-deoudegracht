@@ -4,10 +4,12 @@ import com.deoudegracht.deoudegracht.mappers.IngredientMapper;
 import com.deoudegracht.deoudegracht.models.Ingredient;
 import com.deoudegracht.deoudegracht.repositories.IngredientRepository;
 import jakarta.transaction.Transactional;
+import org.hibernate.sql.model.jdbc.OptionalTableUpdateOperation;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @Transactional
@@ -24,7 +26,6 @@ public class IngredientService {
             throw new RuntimeException("Ingredient already exists");
         }
     }
-
     public List<IngredientResponseDTO> getAllIngredients() {
         try {
             List<IngredientResponseDTO> ingredientsResponseDtoList;
@@ -41,6 +42,14 @@ public class IngredientService {
             }
         } catch (Exception e) {
             throw new RuntimeException("No Employees found");
+        }
+    }
+    public void deleteIngredient(long id ) {
+        try {
+            Optional<Ingredient> ingredient = ingredientRepository.findById(id);
+            ingredientRepository.delete(ingredient.get());
+        } catch (Exception e) {
+            throw new RuntimeException("Ingredient not found");
         }
     }
 }
