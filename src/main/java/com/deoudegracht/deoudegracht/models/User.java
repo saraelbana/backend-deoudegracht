@@ -39,17 +39,30 @@ public class User {
     //a REgExp to validate the phone number let's set it later
     // @Pattern(regexp = "^\\+?[1-9][0-9]{7,14}$", message = "Please enter a valid phone number")
     private String phone;
+    private Role userRole = Role.ADMIN;
 
 
    public User() {}
+
     public User(String username, String password, String firstname, String lastname, String email, String phone) {
+        this.username = username.toLowerCase();
+        this.password = password;
+        this.firstname = firstname;
+        this.lastname = lastname;
+        this.email = email;
+        this.phone = phone;
+        this.userRole = Role.ADMIN;
+    }
+
+    public User(String username, String password, String firstname, String lastname, String email, String phone, Role userRole) {
         this.username = username;
         this.password = password;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
         this.phone = phone;
-   }
+        this.userRole = userRole;
+    }
 
     public String getUsername() {
         return username;
@@ -97,6 +110,12 @@ public class User {
 
     public void setPhone(String phone) {
         this.phone = phone;
+    }
+    public Role getUserRole() {
+        return userRole;
+    }
+    public void setUserRole(Role userRole) {
+        this.userRole = userRole;
     }
 
 }

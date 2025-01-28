@@ -1,12 +1,8 @@
 package com.deoudegracht.deoudegracht.services;
 
-import com.deoudegracht.deoudegracht.dtos.EmployeeResponseDTO;
 import com.deoudegracht.deoudegracht.dtos.ReservationResponseDTO;
-import com.deoudegracht.deoudegracht.mappers.EmployeeMapper;
 import com.deoudegracht.deoudegracht.mappers.ReservationMapper;
-import com.deoudegracht.deoudegracht.models.Employee;
 import com.deoudegracht.deoudegracht.models.Reservation;
-import com.deoudegracht.deoudegracht.repositories.EmployeeRepository;
 import com.deoudegracht.deoudegracht.repositories.ReservationRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.stereotype.Service;

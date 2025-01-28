@@ -2,7 +2,6 @@ package com.deoudegracht.deoudegracht.services;
 
 import com.deoudegracht.deoudegracht.dtos.RecipeResponseDTO;
 import com.deoudegracht.deoudegracht.models.Ingredient;
-import com.deoudegracht.deoudegracht.models.InstructionStep;
 import com.deoudegracht.deoudegracht.models.Recipe;
 import com.deoudegracht.deoudegracht.mappers.RecipeMapper;
 import com.deoudegracht.deoudegracht.models.RecipeIngredient;

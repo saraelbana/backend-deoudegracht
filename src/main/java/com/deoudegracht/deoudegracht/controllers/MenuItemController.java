@@ -4,7 +4,6 @@ import com.deoudegracht.deoudegracht.dtos.MenuItemRequestDTO;
 import com.deoudegracht.deoudegracht.dtos.MenuItemResponseDTO;
 import com.deoudegracht.deoudegracht.mappers.MenuItemMapper;
 import com.deoudegracht.deoudegracht.models.MenuItem;
-import com.deoudegracht.deoudegracht.services.EmployeeService;
 import com.deoudegracht.deoudegracht.services.MenuItemService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;

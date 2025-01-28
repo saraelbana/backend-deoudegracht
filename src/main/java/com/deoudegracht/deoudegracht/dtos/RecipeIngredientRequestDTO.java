@@ -1,7 +1,5 @@
 package com.deoudegracht.deoudegracht.dtos;
 
-import com.deoudegracht.deoudegracht.models.Recipe;
-
 public class RecipeIngredientRequestDTO {
     private String name;
     private float quantity;

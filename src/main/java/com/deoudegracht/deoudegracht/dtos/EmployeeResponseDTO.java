@@ -1,8 +1,5 @@
 package com.deoudegracht.deoudegracht.dtos;
 
-import com.deoudegracht.deoudegracht.mappers.RoleMapper;
-import com.deoudegracht.deoudegracht.models.User;
-
 public class EmployeeResponseDTO {
     private long id;
     private String firstname;

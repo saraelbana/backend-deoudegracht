@@ -4,8 +4,6 @@ package com.deoudegracht.deoudegracht.mappers;
 import com.deoudegracht.deoudegracht.dtos.EmployeeRequestDTO;
 import com.deoudegracht.deoudegracht.dtos.EmployeeResponseDTO;
 import com.deoudegracht.deoudegracht.models.Employee;
-import com.deoudegracht.deoudegracht.models.User;
-import com.deoudegracht.deoudegracht.models.Role;
 import org.springframework.stereotype.Component;
 
 @Component

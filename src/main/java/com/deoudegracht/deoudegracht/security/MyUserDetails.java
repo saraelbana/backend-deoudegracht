@@ -1,6 +1,5 @@
 package com.deoudegracht.deoudegracht.security;
 
-
 import com.deoudegracht.deoudegracht.models.User;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,14 +16,11 @@ public class MyUserDetails implements UserDetails {
     public MyUserDetails(User user) {
         this.user = user;
     }
+
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         List<GrantedAuthority> authorities = new ArrayList<>();
-
-//        for (Role role : user.getRoles()) {
-//            authorities.add(new SimpleGrantedAuthority(role.getRoleName()));
-//        }
-
+        authorities.add(new SimpleGrantedAuthority(user.getUserRole().name()));
         return authorities;
     }
 

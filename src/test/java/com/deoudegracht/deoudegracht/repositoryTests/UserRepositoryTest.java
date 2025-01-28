@@ -3,9 +3,6 @@ package com.deoudegracht.deoudegracht.repositoryTests;
 import com.deoudegracht.deoudegracht.DeOudegrachtApplication;
 
 
-import com.deoudegracht.deoudegracht.models.User;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.test.context.ContextConfiguration;
 

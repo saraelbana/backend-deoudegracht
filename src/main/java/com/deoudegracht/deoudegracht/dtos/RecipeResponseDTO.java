@@ -1,7 +1,5 @@
 package com.deoudegracht.deoudegracht.dtos;
 
-import com.deoudegracht.deoudegracht.models.InstructionStep;
-
 import java.util.ArrayList;
 import java.util.List;
 
