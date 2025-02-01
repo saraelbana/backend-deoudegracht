@@ -1,14 +1,12 @@
 package com.deoudegracht.deoudegracht.servicesTests;
 
 import com.deoudegracht.deoudegracht.DeOudegrachtApplication;
-import com.deoudegracht.deoudegracht.dtos.EmployeeResponseDTO;
-import com.deoudegracht.deoudegracht.dtos.RecipeResponseDTO;
-import com.deoudegracht.deoudegracht.models.*;
+import com.deoudegracht.deoudegracht.models.FoodCategoryType;
+import com.deoudegracht.deoudegracht.models.Recipe;
 import com.deoudegracht.deoudegracht.repositories.IngredientRepository;
 import com.deoudegracht.deoudegracht.repositories.RecipeRepository;
 import com.deoudegracht.deoudegracht.services.RecipeService;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;

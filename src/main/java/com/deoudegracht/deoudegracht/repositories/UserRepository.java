@@ -1,6 +1,5 @@
 package com.deoudegracht.deoudegracht.repositories;
 
-import com.deoudegracht.deoudegracht.models.Employee;
 import com.deoudegracht.deoudegracht.models.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 

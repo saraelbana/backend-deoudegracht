@@ -5,7 +5,8 @@ public enum Role {
     EMPLOYEE,
     ADMIN,
     CHEF,
-    WAITER;
+    WAITER,
+    GUEST;
     public String getRoleName() {
         return this.name();
     }

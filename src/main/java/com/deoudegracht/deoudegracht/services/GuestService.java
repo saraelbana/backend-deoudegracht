@@ -1,11 +1,7 @@
 package com.deoudegracht.deoudegracht.services;
 
-import com.deoudegracht.deoudegracht.dtos.EmployeeResponseDTO;
-import com.deoudegracht.deoudegracht.dtos.GuestRequestDTO;
 import com.deoudegracht.deoudegracht.dtos.GuestResponseDTO;
-import com.deoudegracht.deoudegracht.mappers.EmployeeMapper;
 import com.deoudegracht.deoudegracht.mappers.GuestMapper;
-import com.deoudegracht.deoudegracht.models.Employee;
 import com.deoudegracht.deoudegracht.models.Guest;
 import com.deoudegracht.deoudegracht.repositories.GuestRepository;
 import jakarta.transaction.Transactional;

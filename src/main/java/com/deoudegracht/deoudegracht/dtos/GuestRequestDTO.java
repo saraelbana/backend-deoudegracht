@@ -1,7 +1,6 @@
 package com.deoudegracht.deoudegracht.dtos;
 
 import com.deoudegracht.deoudegracht.models.Reservation;
-import com.deoudegracht.deoudegracht.models.User;
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotNull;

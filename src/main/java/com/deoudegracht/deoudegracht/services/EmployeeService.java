@@ -47,7 +47,8 @@ public class EmployeeService {
             List <EmployeeResponseDTO> employeesResponseDtoList;
             List <Employee> employeesList = employeeRepository.findAll();
             if(employeesList.isEmpty()) {
-                throw new RuntimeException("No Employees found");
+                return Collections.emptyList();
+                //throw new RuntimeException("No Employees found");
             }
             else {
                 employeesResponseDtoList = new ArrayList<>();
@@ -91,8 +92,6 @@ public class EmployeeService {
             existingEmployee.getUser().setLastname(newDataEmployee.getUser().getLastname());
             existingEmployee.getUser().setEmail(newDataEmployee.getUser().getEmail());
             existingEmployee.getUser().setPhone(newDataEmployee.getUser().getPhone());
-            //existingEmployee.getUser().setPassword(newDataEmployee.getUser().getPassword());
-            //existingEmployee.getUser().setUsername(newDataEmployee.getUser().getUsername());
             existingEmployee.setRole(newDataEmployee.getRole());
             System.out.println(existingEmployee.getUser().getFirstname() + " " + existingEmployee.getUser().getLastname());
 

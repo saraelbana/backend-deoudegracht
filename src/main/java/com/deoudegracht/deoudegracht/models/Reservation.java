@@ -1,6 +1,5 @@
 package com.deoudegracht.deoudegracht.models;
 
-import com.deoudegracht.deoudegracht.dtos.ReservationResponseDTO;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;

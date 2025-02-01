@@ -4,7 +4,6 @@ import com.deoudegracht.deoudegracht.mappers.IngredientMapper;
 import com.deoudegracht.deoudegracht.models.Ingredient;
 import com.deoudegracht.deoudegracht.repositories.IngredientRepository;
 import jakarta.transaction.Transactional;
-import org.hibernate.sql.model.jdbc.OptionalTableUpdateOperation;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;

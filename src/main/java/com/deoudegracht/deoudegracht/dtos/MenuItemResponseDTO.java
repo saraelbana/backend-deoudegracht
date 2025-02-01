@@ -1,7 +1,6 @@
 package com.deoudegracht.deoudegracht.dtos;
 
 import com.deoudegracht.deoudegracht.models.FoodCategoryType;
-import com.deoudegracht.deoudegracht.models.Recipe;
 
 public class MenuItemResponseDTO {
     private String name;

@@ -9,5 +9,4 @@ public class DeOudegrachtApplication {
     public static void main(String[] args) {
         SpringApplication.run(DeOudegrachtApplication.class, args);
     }
-
 }
