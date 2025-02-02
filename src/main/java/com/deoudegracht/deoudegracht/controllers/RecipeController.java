@@ -55,7 +55,6 @@ public class RecipeController {
             return ResponseEntity.unprocessableEntity().body("Recipe Creation failed");
         }
     }
-
     @PutMapping("/{id}")
     ResponseEntity<?> updateRecipe(@PathVariable Long id, @RequestBody RecipeRequestDTO recipeRequestDTO) {
         try{

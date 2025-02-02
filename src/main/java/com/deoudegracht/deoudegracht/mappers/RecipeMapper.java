@@ -23,11 +23,10 @@ public class RecipeMapper {
             recipeResponseDTO.setRecipeIngredients(RecipeIngredientMapper.mapRecipeIngredientToRecipeIngredientResponseDTO(recipeIngredient));
         }
         for (InstructionStep instructionStep : recipe.getInstructionsSteps()) {
-            recipeResponseDTO.setInstructionSteps(InstructionStepMapper.mapInstructionStepToInstructionStepResponseDTO(instructionStep));
+            recipeResponseDTO.setInstructionsSteps(InstructionStepMapper.mapInstructionStepToInstructionStepResponseDTO(instructionStep));
         }
         return recipeResponseDTO;
     }
-
     public static Recipe mapRecipeRequestDTOToRecipe(RecipeRequestDTO recipeRequestDTO) {
         //public Recipe(String name, String description, FoodCategoryType category, List<RecipeIngredient> recipeIngredients, List<InstructionStep> instructionsSteps)
         Recipe recipe = new Recipe(recipeRequestDTO.getRecipeName(),recipeRequestDTO.getDescription(), FoodCategoryType.valueOf(recipeRequestDTO.getCategory()));

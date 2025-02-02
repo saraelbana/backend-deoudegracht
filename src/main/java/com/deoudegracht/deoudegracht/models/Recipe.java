@@ -11,18 +11,13 @@ public class Recipe {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     @Column(unique = true)
     private String name;
-
     private String description;
-
     @Enumerated(EnumType.STRING)
     private FoodCategoryType category;
-
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
-
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
     private List<InstructionStep> instructionsSteps = new ArrayList<>();
 
@@ -51,26 +46,14 @@ public class Recipe {
     public String getDescription() {
         return description;
     }
-    public void setDescription(String description) {
-        this.description = description;
-    }
     public List<RecipeIngredient> getRecipeIngredients() {
         return recipeIngredients;
     }
     public void setRecipeIngredients(List<RecipeIngredient> recipeIngredients) {
         this.recipeIngredients = recipeIngredients;
     }
-    public void addRecipeIngredient(RecipeIngredient recipeIngredient) {
-        recipeIngredients.add(recipeIngredient);
-    }
-    public List<InstructionStep> getRecipeInstructions() {
-        return instructionsSteps;
-    }
-    public void setRecipeInstructions(List<InstructionStep> instructionSteps) {
-        this.instructionsSteps = instructionSteps;
-    }
-    public void addInstructionStep(InstructionStep instructionStep) {
-        instructionsSteps.add(instructionStep);
+    public void setRecipeInstructions(List<InstructionStep> instructionsSteps) {
+        this.instructionsSteps = instructionsSteps;
     }
     public List<InstructionStep> getInstructionsSteps() {
         return instructionsSteps;
@@ -78,15 +61,19 @@ public class Recipe {
     public FoodCategoryType getCategory() {
         return category;
     }
+    public void addInstructionStep(InstructionStep instructionStep) {
+        instructionsSteps.add(instructionStep);
+    }
     public void setCategory(FoodCategoryType category) {
         this.category = category;
     }
-
-//    public MenuItem getMenuItem() {
-//        return menuItem;
-//    }
-//
-//    public void setMenuItem(MenuItem menuItem) {
-//        this.menuItem = menuItem;
-//    }
+    public void addRecipeIngredient(RecipeIngredient recipeIngredient) {
+        recipeIngredients.add(recipeIngredient);
+    }
+    public List<InstructionStep> getRecipeInstructions() {
+        return instructionsSteps;
+    }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 }

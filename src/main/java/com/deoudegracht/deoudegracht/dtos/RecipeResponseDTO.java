@@ -27,8 +27,8 @@ public class RecipeResponseDTO {
     public void setRecipeIngredients(RecipeIngredientResponseDTO recipeIngredients) {
         this.recipeIngredients.add(recipeIngredients);
     }
-    public void setInstructionSteps(InstructionStepResponseDTO instructionSteps) {
-        this.instructionsSteps.add(instructionSteps);
+    public void setInstructionsSteps(InstructionStepResponseDTO instructionStep) {
+        this.instructionsSteps.add(instructionStep);
     }
     public void setCategory(String category) {
         this.category = category;
@@ -51,6 +51,4 @@ public class RecipeResponseDTO {
     public String getRecipeName() {
         return recipeName;
     }
-
-
 }

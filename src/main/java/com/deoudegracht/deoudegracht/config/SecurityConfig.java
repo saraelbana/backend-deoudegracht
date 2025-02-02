@@ -58,11 +58,11 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.GET, "/recipes/**").hasAnyAuthority("ADMIN", "CHEF", "EMPLOYEE")
                         .requestMatchers("/recipes/**").hasAnyAuthority("ADMIN", "CHEF")
                         .requestMatchers("/menu-items/**").hasAnyAuthority("ADMIN", "CHEF")
-//                        .requestMatchers(HttpMethod.GET, "/guests/{username}").access((authentication, context) -> {
-//                            String username = context.getVariables().get("username");
-//                            boolean isAuthorized = authentication.get().getName().equals(username) || authentication.get().getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"));
-//                            return new AuthorizationDecision(isAuthorized);
-//                        })
+                        .requestMatchers(HttpMethod.GET, "/guests/{username}").access((authentication, context) -> {
+                            String username = context.getVariables().get("username");
+                            boolean isAuthorized = authentication.get().getName().equals(username) || authentication.get().getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"));
+                            return new AuthorizationDecision(isAuthorized);
+                        })
                         .requestMatchers("/guests/**").hasAuthority("ADMIN")
                         .requestMatchers("/reservations/**").authenticated()
                         .anyRequest().authenticated()

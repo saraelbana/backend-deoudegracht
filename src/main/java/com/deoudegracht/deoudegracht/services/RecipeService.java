@@ -36,7 +36,6 @@ public class RecipeService {
             throw new RuntimeException("No recipes found");
         }
     }
-
     public Recipe getRecipeById(long id) {
         try {
             Optional<Recipe> recipe = recipeRepository.findById(id);
