@@ -38,7 +38,6 @@ public class MenuItemController {
             return ResponseEntity.notFound().build();
         }
     }
-
     @PostMapping()
     ResponseEntity<?> createMenuItem(@RequestBody MenuItemRequestDTO menuItemRequestDTO){
         try{
@@ -57,7 +56,6 @@ public class MenuItemController {
             return ResponseEntity.unprocessableEntity().body("Creating new Menu Item failed");
         }
     }
-
     @PutMapping("/{id}")
     ResponseEntity<?> updateMenuItem(@PathVariable long id, @RequestBody MenuItemRequestDTO menuItemRequestDTO){
         try{

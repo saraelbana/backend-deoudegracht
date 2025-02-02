@@ -16,6 +16,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 @Component
 public class JwtRequestFilter extends OncePerRequestFilter {
@@ -25,9 +27,21 @@ public class JwtRequestFilter extends OncePerRequestFilter {
     private final UserDetailsService userDetailsService;
     private final JwtService jwtService;
 
+    private static final List<String> SKIP_PATHS = Arrays.asList(
+            "/auth/login",
+            "/auth/register"
+    );
+
     public JwtRequestFilter(JwtService jwtService, UserDetailsService udService) {
         this.jwtService = jwtService;
         this.userDetailsService = udService;
+    }
+
+    @Override
+    protected boolean shouldNotFilter(HttpServletRequest request) throws ServletException {
+        String path = request.getServletPath();
+        return SKIP_PATHS.stream()
+                .anyMatch(path::startsWith);
     }
 
     @Override

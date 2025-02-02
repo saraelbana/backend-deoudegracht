@@ -4,7 +4,9 @@ import com.deoudegracht.deoudegracht.security.JwtRequestFilter;
 import com.deoudegracht.deoudegracht.security.JwtService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authorization.AuthorizationDecision;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
@@ -33,19 +35,34 @@ public class SecurityConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+
     @Bean
     public JwtRequestFilter jwtRequestFilter(JwtService jwtService) {
         return new JwtRequestFilter(jwtService, userDetailsService);
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http, JwtRequestFilter jwtRequestFilter) throws Exception {
         return http
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/login").permitAll()
-                        .requestMatchers("/employees/**").hasAnyAuthority("ADMIN", "CHEF")
+                        .requestMatchers("/auth/register").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/menu-items").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/employees/**").hasAnyAuthority("ADMIN", "CHEF")
+                        .requestMatchers(HttpMethod.POST, "/employees/**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/employees/**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/employees/**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/recipes/**").hasAnyAuthority("ADMIN", "CHEF", "EMPLOYEE")
                         .requestMatchers("/recipes/**").hasAnyAuthority("ADMIN", "CHEF")
                         .requestMatchers("/menu-items/**").hasAnyAuthority("ADMIN", "CHEF")
+//                        .requestMatchers(HttpMethod.GET, "/guests/{username}").access((authentication, context) -> {
+//                            String username = context.getVariables().get("username");
+//                            boolean isAuthorized = authentication.get().getName().equals(username) || authentication.get().getAuthorities().stream().anyMatch(a -> a.getAuthority().equals("ADMIN"));
+//                            return new AuthorizationDecision(isAuthorized);
+//                        })
+                        .requestMatchers("/guests/**").hasAuthority("ADMIN")
                         .requestMatchers("/reservations/**").authenticated()
                         .anyRequest().authenticated()
                 )
@@ -58,7 +75,7 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:3000");
+        config.addAllowedOrigin("http://localhost:5174");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);

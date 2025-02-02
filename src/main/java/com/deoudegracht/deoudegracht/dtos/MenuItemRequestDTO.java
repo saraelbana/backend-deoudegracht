@@ -7,21 +7,10 @@ public class MenuItemRequestDTO {
     private String description;
     private double price;
     private FoodCategoryType category;
-
-    public int getRecipeId() {
-        return recipeId;
-    }
-
-    public void setRecipeId(int recipeId) {
-        this.recipeId = recipeId;
-    }
-
-    private int recipeId;
-
+    private long recipeId;
 
     public MenuItemRequestDTO() {
     }
-
     public MenuItemRequestDTO(String name, String description, double price, FoodCategoryType category, int recipeId) {
         this.name = name;
         this.description = description;
@@ -29,7 +18,12 @@ public class MenuItemRequestDTO {
         this.category = category;
         this.recipeId = recipeId;
     }
-
+    public long getRecipeId() {
+        return recipeId;
+    }
+    public void setRecipeId(int recipeId) {
+        this.recipeId = recipeId;
+    }
     public String getName() {
         return name;
     }

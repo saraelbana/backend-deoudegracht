@@ -7,11 +7,13 @@ public class AutheticationResponseDTO {
     private String token;
     private String username;
     private Role userRole;
+    private String firstname;
 
-    public AutheticationResponseDTO(String token, String username, Role userRole) {
+    public AutheticationResponseDTO(String token, String username, Role userRole, String firstname) {
         this.token = token;
         this.username = username;
         this.userRole = userRole;
+        this.firstname = firstname;
     }
 
     public String getToken() {

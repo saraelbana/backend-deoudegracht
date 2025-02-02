@@ -24,7 +24,7 @@ public class Guest {
     }
     public Guest(String firstname, String lastname, String email, String username, String password, String phone)
     {
-        this.user = new User(username, password, firstname, lastname, email, phone);
+        this.user = new User(username, password, firstname, lastname, email, phone, Role.GUEST);
     }
 
     public long getID() {

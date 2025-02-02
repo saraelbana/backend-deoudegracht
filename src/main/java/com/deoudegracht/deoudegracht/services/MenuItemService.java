@@ -39,6 +39,10 @@ public class MenuItemService {
     }
 
     public MenuItemResponseDTO createMenuItem(MenuItem menuItem) {
+        String menuItemName = menuItem.getName();
+        if(menuItemRepository.findByName(menuItemName).isPresent()) {
+            throw new RuntimeException("Menu item already exists with the name: " + menuItemName);
+        }
         try {
             menuItemRepository.save(menuItem);
             return MenuItemMapper.mapMenuItemToMenuItemResponseDTO(menuItem);

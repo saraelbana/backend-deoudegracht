@@ -26,6 +26,7 @@ public class GuestRequestDTO {
     @Size(min = 8, message = "Password must be at least 8 characters long")
     private String password;
     private String phone = "not provided";
+    private String role = "GUEST";
 
     private List<Reservation> reservations = new ArrayList<>();
     public GuestRequestDTO(@NotNull String firstname, @NotNull String lastname, String email, @NotNull String username, @NotNull String password, String phone) {

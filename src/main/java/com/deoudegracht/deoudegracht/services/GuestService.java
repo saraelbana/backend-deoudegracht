@@ -5,6 +5,7 @@ import com.deoudegracht.deoudegracht.mappers.GuestMapper;
 import com.deoudegracht.deoudegracht.models.Guest;
 import com.deoudegracht.deoudegracht.repositories.GuestRepository;
 import jakarta.transaction.Transactional;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -17,13 +18,18 @@ public class GuestService {
 
     private final GuestRepository guestRepository;
     private final UserService userService;
-    public GuestService(GuestRepository guestRepository,UserService userService) {
+    private final PasswordEncoder passwordEncoder;
+    public GuestService(GuestRepository guestRepository,UserService userService, PasswordEncoder passwordEncoder) {
         this.guestRepository = guestRepository;
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
+
 
     public GuestResponseDTO createGuest(Guest guest) {
         String username = guest.getUser().getUsername();
+        String encryptedPassword = passwordEncoder.encode(guest.getUser().getPassword());
+        guest.getUser().setPassword(encryptedPassword);
         if (userService.findByUsername(username).isPresent()) {
             throw new RuntimeException("Username already exists");
         }

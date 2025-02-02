@@ -39,6 +39,7 @@ public class User {
     //a REgExp to validate the phone number let's set it later
     // @Pattern(regexp = "^\\+?[1-9][0-9]{7,14}$", message = "Please enter a valid phone number")
     private String phone;
+    @Enumerated(EnumType.STRING)
     private Role userRole = Role.ADMIN;
 
 
@@ -51,7 +52,6 @@ public class User {
         this.lastname = lastname;
         this.email = email;
         this.phone = phone;
-        this.userRole = Role.ADMIN;
     }
 
     public User(String username, String password, String firstname, String lastname, String email, String phone, Role userRole) {

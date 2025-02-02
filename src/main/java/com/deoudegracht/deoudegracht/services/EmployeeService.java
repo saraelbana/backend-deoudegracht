@@ -6,6 +6,7 @@ import com.deoudegracht.deoudegracht.models.Employee;
 import com.deoudegracht.deoudegracht.repositories.EmployeeRepository;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
@@ -23,18 +24,23 @@ import java.util.*;
 public class EmployeeService {
     private final EmployeeRepository employeeRepository;
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
-    public EmployeeService(EmployeeRepository employeeRepository, UserService userService) {
+    public EmployeeService(EmployeeRepository employeeRepository, UserService userService, PasswordEncoder passwordEncoder) {
         this.employeeRepository = employeeRepository;
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     public EmployeeResponseDTO createEmployee(Employee employee) {
         String username = employee.getUser().getUsername();
+        System.out.println("Username: " + username + " Password: " + employee.getUser().getPassword());
+        String encryptedPassword = passwordEncoder.encode(employee.getUser().getPassword());
         if (userService.findByUsername(username).isPresent()) {
             throw new RuntimeException("Username already exists");
         }
         try {
+            employee.getUser().setPassword(encryptedPassword);
             Employee savedEmployee = employeeRepository.save(employee);
             return EmployeeMapper.mapEmployeeToEmployeeResponseDTO(savedEmployee);
         }

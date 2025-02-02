@@ -23,18 +23,18 @@ public class InitialDataLoader implements CommandLineRunner {
         if (employeeService.getAllEmployees().isEmpty()) {
             User adminUser = new User(
                     "admin",
-                    passwordEncoder.encode("admin123"),
+                    //passwordEncoder.encode("admin123"),
+                    "admin123",
                     "Admin",
                     "User",
                     "admin@restaurant.com",
                     "1234567890",
-                    Role.CHEF
+                    Role.ADMIN
             );
 
             Employee admin = new Employee();
             admin.setUser(adminUser);
-            admin.setRole(Role.CHEF);
-
+            admin.setRole(Role.ADMIN);
             employeeService.createEmployee(admin);
         }
     }
