@@ -16,9 +16,9 @@ public class Recipe {
     private String description;
     @Enumerated(EnumType.STRING)
     private FoodCategoryType category;
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
-    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InstructionStep> instructionsSteps = new ArrayList<>();
 
     public Recipe(String name, String description, FoodCategoryType category) {
