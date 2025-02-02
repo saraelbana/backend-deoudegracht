@@ -47,6 +47,9 @@ public class RecipeService {
     }
     public RecipeResponseDTO createRecipe(Recipe recipe) {
         try {
+            if(recipeRepository.findByName(recipe.getName()).isPresent()) {
+                throw new RuntimeException("Recipe already exists with the name: " + recipe.getName());
+            }
             for (RecipeIngredient recipeIngredient : recipe.getRecipeIngredients()) {
                 // Check if the ingredient already exists
                 Optional<Ingredient> existingIngredient = ingredientRepository.findByName(recipeIngredient.getIngredient().getName());
@@ -66,13 +69,25 @@ public class RecipeService {
             // Return the response
             return RecipeMapper.mapRecipeToRecipeResponseDTO(recipe);
         } catch (Exception e) {
-            e.printStackTrace();
             throw new RuntimeException("Creating recipe process failed");
         }
     }
     public Recipe updateRecipe(Recipe recipe) {
         try {
+            for (RecipeIngredient recipeIngredient : recipe.getRecipeIngredients()) {
+                // Check if the ingredient already exists
+                Optional<Ingredient> existingIngredient = ingredientRepository.findByName(recipeIngredient.getIngredient().getName());
+                if (existingIngredient.isPresent()) {
+                    // Reuse the existing ingredient
+                    recipeIngredient.setIngredient(existingIngredient.get());
+                } else {
+                    // Save the new ingredient
+                    ingredientRepository.save(recipeIngredient.getIngredient());
+                }
+                recipeIngredient.setRecipe(recipe);
+            }
             recipeRepository.save(recipe);
+            // Return the response
             return recipe;
         }catch (Exception e) {
             throw new RuntimeException("Updating recipe process failed");

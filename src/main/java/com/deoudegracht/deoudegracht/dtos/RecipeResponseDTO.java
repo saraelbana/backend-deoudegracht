@@ -9,23 +9,15 @@ public class RecipeResponseDTO {
     private String description;
     private String category;
     private MenuItemResponseDTO menuItem;
-    private List<InstructionStepResponseDTO> instructionSteps = new ArrayList<>();
+    private List<InstructionStepResponseDTO> instructionsSteps = new ArrayList<>();
     private List<RecipeIngredientResponseDTO> recipeIngredients = new ArrayList<>();
-
-
 
     public long getId() {
         return id;
     }
-
     public void setId(long id) {
         this.id = id;
     }
-
-    public String getRecipeName() {
-        return recipeName;
-    }
-
     public void setRecipeName(String recipeName) {
         this.recipeName = recipeName;
     }
@@ -36,10 +28,16 @@ public class RecipeResponseDTO {
         this.recipeIngredients.add(recipeIngredients);
     }
     public void setInstructionSteps(InstructionStepResponseDTO instructionSteps) {
-        this.instructionSteps.add(instructionSteps);
+        this.instructionsSteps.add(instructionSteps);
     }
     public void setCategory(String category) {
         this.category = category;
+    }
+    public List<RecipeIngredientResponseDTO> getRecipeIngredients() {
+        return recipeIngredients;
+    }
+    public List<InstructionStepResponseDTO> getInstructionSteps() {
+        return instructionsSteps;
     }
     public void setMenuItem(MenuItemResponseDTO menuItem) {
         this.menuItem = menuItem;
@@ -50,11 +48,9 @@ public class RecipeResponseDTO {
     public String getDescription() {
         return description;
     }
-    public List<RecipeIngredientResponseDTO> getRecipeIngredients() {
-        return recipeIngredients;
+    public String getRecipeName() {
+        return recipeName;
     }
-    public List<InstructionStepResponseDTO> getInstructionSteps() {
-        return instructionSteps;
-    }
+
 
 }

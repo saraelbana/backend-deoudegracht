@@ -41,6 +41,7 @@ public class RecipeController {
     }
     @PostMapping
     ResponseEntity<?>createRecipe(@RequestBody RecipeRequestDTO recipeRequestDTO) {
+        System.out.println("hello there from recipe controller create this recpe" + recipeRequestDTO.toString());
         try {
             System.out.println("hello there from recipe controller" + recipeRequestDTO.toString());
             RecipeResponseDTO newCreatedRecipeDto = recipeService.createRecipe(RecipeMapper.mapRecipeRequestDTOToRecipe(recipeRequestDTO));
@@ -54,20 +55,7 @@ public class RecipeController {
             return ResponseEntity.unprocessableEntity().body("Recipe Creation failed");
         }
     }
-//    @PostMapping
-//    ResponseEntity<?>createRecipe(@RequestBody RecipeRequestDTO recipeRequestDTO) {
-//        try {
-//            RecipeResponseDTO newCreatedRecipeDto = recipeService.createRecipe(RecipeMapper.mapRecipeRequestDTOToRecipe(recipeRequestDTO));
-//            System.out.println("Hello there here we are Recipe with ID number" + newCreatedRecipeDto.getId());
-//
-//            URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentRequest().path("/" + newCreatedRecipeDto.getId()).toUriString());
-//
-//            return ResponseEntity.created(uri).body(newCreatedRecipeDto);
-//        }
-//        catch (Exception e) {
-//            return ResponseEntity.unprocessableEntity().body("Recipe Creation failed");
-//        }
-//    }
+
     @PutMapping("/{id}")
     ResponseEntity<?> updateRecipe(@PathVariable Long id, @RequestBody RecipeRequestDTO recipeRequestDTO) {
         try{

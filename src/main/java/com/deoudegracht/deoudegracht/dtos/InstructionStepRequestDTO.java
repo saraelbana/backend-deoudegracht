@@ -16,7 +16,6 @@ public class InstructionStepRequestDTO {
     public InstructionStepRequestDTO(String instruction) {
         this.instruction = instruction;
     }
-
     @Override
     public String toString() {
         return "InstructionStepRequestDTO{" +

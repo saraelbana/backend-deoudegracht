@@ -49,6 +49,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/auth/login").permitAll()
                         .requestMatchers("/auth/register").permitAll()
+                        .requestMatchers("/categories").permitAll()
                         .requestMatchers(HttpMethod.GET, "/menu-items").permitAll()
                         .requestMatchers(HttpMethod.GET, "/employees/**").hasAnyAuthority("ADMIN", "CHEF")
                         .requestMatchers(HttpMethod.POST, "/employees/**").hasAuthority("ADMIN")
@@ -75,7 +76,7 @@ public class SecurityConfig {
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
         CorsConfiguration config = new CorsConfiguration();
         config.setAllowCredentials(true);
-        config.addAllowedOrigin("http://localhost:5174");
+        config.addAllowedOrigin("http://localhost:5173");
         config.addAllowedHeader("*");
         config.addAllowedMethod("*");
         source.registerCorsConfiguration("/**", config);

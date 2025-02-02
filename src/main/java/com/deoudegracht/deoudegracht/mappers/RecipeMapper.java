@@ -43,11 +43,8 @@ public class RecipeMapper {
         recipe.setRecipeIngredients(recipeItemsList);
 
         // Map Instruction Steps
-        for (InstructionStepRequestDTO instructionStepRequestDTO : recipeRequestDTO.getInstructionSteps()) {
-            InstructionStep instructionStep = new InstructionStep();
-            instructionStep.setInstruction(instructionStepRequestDTO.getInstruction());
-            instructionStep.setRecipe(recipe); // Set the parent recipe
-            instructionsStepsList.add(instructionStep);
+        for(int i = 0; i < recipeRequestDTO.getInstructionsSteps().size(); i++){
+            instructionsStepsList.add(InstructionStepMapper.mapInstructionStepRequestDTOToInstructionStep(recipeRequestDTO.getInstructionsSteps().get(i)));
         }
         recipe.setRecipeInstructions(instructionsStepsList);
 
