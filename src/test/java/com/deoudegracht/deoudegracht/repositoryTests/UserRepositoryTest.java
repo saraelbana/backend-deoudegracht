@@ -9,16 +9,5 @@ import org.springframework.test.context.ContextConfiguration;
 @DataJpaTest
 @ContextConfiguration(classes={DeOudegrachtApplication.class})
 public class UserRepositoryTest {
-//    @Autowired
-//    private UserRepositoryTest userRepositoryTest;
-//    @Test
-//    void testFindByUsername() {
-//        //given
-//        User user = new User("username", "password12345", "firstname", "lastname", "email", "not provided");
-//
-//        //when
-//
-//        //then
-//    }
 
 }

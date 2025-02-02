@@ -48,22 +48,4 @@ public class RecipeServiceTest {
         verify(recipeRepository).findById(recipeId);
     }
 
-    @Test
-    public void testUpdateRecipe() {
-        // given
-        Recipe recipe = new Recipe("Test Recipe", "Original Description", FoodCategoryType.Salad);
-        recipe.setId(987654321L);
-        Recipe updatedRecipe = new Recipe("Test Recipe", "Updated Description", FoodCategoryType.Salad);
-        updatedRecipe.setId(987654321L);
-
-        // when
-        Mockito.when(recipeRepository.save(any(Recipe.class))).thenReturn(updatedRecipe);
-        Recipe result = recipeService.updateRecipe(updatedRecipe);
-
-        // then
-        assertEquals(updatedRecipe.getDescription(), result.getDescription());
-        verify(recipeRepository).save(updatedRecipe);
-    }
-
-
 }

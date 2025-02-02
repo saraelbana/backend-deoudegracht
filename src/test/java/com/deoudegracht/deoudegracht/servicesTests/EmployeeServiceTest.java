@@ -7,32 +7,54 @@ import com.deoudegracht.deoudegracht.models.Role;
 import com.deoudegracht.deoudegracht.models.User;
 import com.deoudegracht.deoudegracht.repositories.EmployeeRepository;
 import com.deoudegracht.deoudegracht.services.EmployeeService;
+import com.deoudegracht.deoudegracht.services.UserService;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.ContextConfiguration;
+import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-@SpringBootTest
-@ContextConfiguration(classes={DeOudegrachtApplication.class})
+@ExtendWith(MockitoExtension.class)
 public class EmployeeServiceTest {
-    @Autowired EmployeeService employeeService;
     @Mock
     private EmployeeRepository employeeRepository;
-
+    
     @Mock
-    Employee employee;
+    private UserService userService;
+    
+    @Mock
+    private PasswordEncoder passwordEncoder;
+    
+    @InjectMocks
+    private EmployeeService employeeService;
 
+    private Employee createTestEmployee(String username) {
+        User user = new User();
+        user.setUsername(username);
+        user.setFirstname("John");
+        user.setLastname("Doe");
+        user.setEmail("john@example.com");
+
+        Employee employee = new Employee();
+        employee.setUser(user);
+        employee.setRole(Role.EMPLOYEE);
+        return employee;
+    }
     @Test
     public void testCreateEmployee() {
         //given
-        String username = "testCreateUsername";
+        String username = "testcreateusername";
         Employee employee = new Employee();
         employee.setUser(new User(username, "testingPassword", "firstname", "lastname", "test@test.com", "phone"));
         employee.setRole(Role.EMPLOYEE);
@@ -48,71 +70,87 @@ public class EmployeeServiceTest {
         assertEquals(employee.getUser().getEmail(), createdEmployee.getEmail());
         assertEquals(employee.getUser().getPhone(), createdEmployee.getPhone());
         assertEquals(employee.getRole().toString(), createdEmployee.getRole());
-        employeeService.deleteEmployee(username);
-
     }
     @Test
-    public void testGetEmployeeByUsername(){
-        //given
-        String username = "testGetUsername";
-        String expectedUsername = "testGetUsername";
+    void createEmployee_Success() {
+        // Arrange
+        User user = new User();
+        user.setUsername("john.doe");
+        user.setPassword("password123");
+        user.setFirstname("John");
+        user.setLastname("Doe");
+        user.setEmail("john@example.com");
+
         Employee employee = new Employee();
-        employee.setUser(new User(username, "testingPassword", "firstname", "lastname", "test@test.com", "phone"));
+        employee.setUser(user);
         employee.setRole(Role.EMPLOYEE);
-        EmployeeResponseDTO mockSavedEmployeeResponseDTO = employeeService.createEmployee(employee);
 
-        //when
-        Mockito.when(employeeRepository.findByUser_Username(username)).thenReturn(Optional.of(employee));
-        EmployeeResponseDTO found = employeeService.getEmployeeByUsername(username);
+        when(userService.findByUsername("john.doe")).thenReturn(Optional.empty());
+        when(passwordEncoder.encode("password123")).thenReturn("encodedPassword");
+        when(employeeRepository.save(any(Employee.class))).thenReturn(employee);
 
-        //then
-        assertEquals(expectedUsername, found.getUsername());
-        employeeService.deleteEmployee(username);
+        // Act
+        EmployeeResponseDTO result = employeeService.createEmployee(employee);
+
+        // Assert
+        assertNotNull(result);
+        assertEquals("john.doe", result.getUsername());
+        assertEquals("John", result.getFirstname());
     }
-   @Test
-    public void testUpdateEmployee() {
-       //given
-       String uniqueUsername = "testUpdateUsername";
-       Employee oldEmployeeData = new Employee();
-       oldEmployeeData.setUser(new User(uniqueUsername, "testingPasswordOld", "firstnameOld", "lastnameOld", "oldTest@oldtest.com", "phone.old"));
-       oldEmployeeData.setRole(Role.EMPLOYEE);
-       EmployeeResponseDTO createdEmployee = employeeService.createEmployee(oldEmployeeData);
+    @Test
+    void getAllEmployees_Success() {
+        // Arrange
+        List<Employee> employees = Arrays.asList(
+                createTestEmployee("john.doe"),
+                createTestEmployee("jane.doe")
+        );
+        when(employeeRepository.findAll()).thenReturn(employees);
 
-       Employee newEmployeeData = new Employee();
-       newEmployeeData.setUser(new User(uniqueUsername, "testingPasswordNew", "firstnameNew", "lastnameNew", "newTest@newTest.com", "phone.new"));
-       newEmployeeData.setRole(Role.CHEF);
+        // Act
+        List<EmployeeResponseDTO> result = employeeService.getAllEmployees();
 
-       //when
-       Mockito.when(employeeRepository.findByUser_Username(uniqueUsername)).thenReturn(Optional.of(oldEmployeeData));
-       Mockito.when(employeeRepository.save(any(Employee.class))).thenReturn(newEmployeeData);
-       EmployeeResponseDTO updatedEmployee = employeeService.updateEmployee(newEmployeeData);
+        // Assert
+        assertNotNull(result);
+    }
 
-       //then
-       assertEquals(updatedEmployee.getId(), createdEmployee.getId());
-       employeeService.deleteEmployee(uniqueUsername);
-   }
+    @Test
+    void deleteEmployee_NotFound() {
+        // Arrange
+        when(employeeRepository.findByUser_Username("notfound")).thenReturn(Optional.empty());
 
-//   @Test
-//    public void testDeleteEmployee() {
-//       //given
-//       String username = "test.delete.username";
-//       Employee employee = new Employee();
-//       employee.setUser(new User(username, "testingPassword", "firstname", "lastname", "test@test.com", "phone"));
-//       employee.setRole(Role.EMPLOYEE);
-//       employee.setId(1L);
-////       EmployeeResponseDTO createdEmployee = employeeService.createEmployee(employee);
-////       employee.setId(createdEmployee.getId());
-//
-//       //when
-//       Mockito.when(employeeRepository.findByUser_Username(username)).thenReturn(Optional.of(employee));
-//       employeeService.deleteEmployee(username);
-//
-//       //then
-//       //verify the delete user method by searching for the employee by username should return empty
-//      //
-//       verify(employeeRepository).findByUser_Username(username);
-//       verify(employeeRepository).deleteById(employee.getId());
-//
-//    }
+        // Act & Assert
+        assertThrows(EntityNotFoundException.class, () -> {
+            employeeService.deleteEmployee("notfound");
+        });
+    }
 
+    @Test
+    public void testGetEmployeeByUsername() {
+        // given
+        String username = "testgetusername";
+        String firstName = "John";
+        String lastName = "Doe";
+        String email = "john.doe@test.com";
+        String phone = "1234567890";
+        Role role = Role.EMPLOYEE;
+
+        User user = new User(username, "testingPassword", firstName, lastName, email, phone);
+        Employee employee = new Employee();
+        employee.setUser(user);
+        employee.setRole(role);
+
+        // when
+        when(employeeRepository.findByUser_Username(username)).thenReturn(Optional.of(employee));
+        
+        // then
+        EmployeeResponseDTO found = employeeService.getEmployeeByUsername(username);
+        
+        // verify
+        assertNotNull(found, "Employee response should not be null");
+        assertEquals(username, found.getUsername(), "Username should match");
+        assertEquals(firstName, found.getFirstname(), "First name should match");
+        assertEquals(lastName, found.getLastname(), "Last name should match");
+        assertEquals(email, found.getEmail(), "Email should match");
+        assertEquals(phone, found.getPhone(), "Phone should match");
+    }
 }

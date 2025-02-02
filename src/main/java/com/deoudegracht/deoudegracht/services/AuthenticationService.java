@@ -2,6 +2,7 @@ package com.deoudegracht.deoudegracht.services;
 
 import com.deoudegracht.deoudegracht.dtos.AuthenticationRequestDTO;
 import com.deoudegracht.deoudegracht.dtos.AutheticationResponseDTO;
+import com.deoudegracht.deoudegracht.exceptions.NotFoundException;
 import com.deoudegracht.deoudegracht.models.Role;
 import com.deoudegracht.deoudegracht.models.User;
 import com.deoudegracht.deoudegracht.repositories.UserRepository;
@@ -46,7 +47,7 @@ public class AuthenticationService {
 
         if (!passwordEncoder.matches(request.getPassword(), userDetails.getPassword())) {
             logger.debug("Invalid password for user: {}", request.getUsername());
-            throw new BadCredentialsException("Wrong password");
+            throw new NotFoundException("User not found");
         }
 
         String token = jwtService.generateToken(userDetails);
@@ -61,9 +62,6 @@ public class AuthenticationService {
     }
 
     public AutheticationResponseDTO register(AuthenticationRequestDTO request) {
-//        if (userDetailsService.loadUserByUsername(request.getUsername()) != null) {
-//            throw new RuntimeException("Username already exists");
-//        }
 
         User newUser = new User();
         newUser.setUsername(request.getUsername());

@@ -13,10 +13,11 @@ public class RoleServiceTest {
         RoleResponseDTO response = service.getAllRoleTypes();
 
 
-        assertEquals(4, response.getAllRoles().size());
+        assertEquals(5, response.getAllRoles().size());
         assertEquals("EMPLOYEE", response.getAllRoles().get(0));
         assertEquals("ADMIN", response.getAllRoles().get(1));
         assertEquals("CHEF", response.getAllRoles().get(2));
         assertEquals("WAITER", response.getAllRoles().get(3));
+        assertEquals("GUEST", response.getAllRoles().get(4));
     }
 }
