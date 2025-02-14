@@ -51,7 +51,6 @@ public class RecipeService {
                 throw new RuntimeException("Recipe already exists with the name: " + recipe.getName());
             }
             saveRecipe(recipe);
-
             // Return the response
             return RecipeMapper.mapRecipeToRecipeResponseDTO(recipe);
         } catch (Exception e) {

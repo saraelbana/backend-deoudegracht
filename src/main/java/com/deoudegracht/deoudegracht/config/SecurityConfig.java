@@ -50,6 +50,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/login").permitAll()
                         .requestMatchers("/auth/register").permitAll()
                         .requestMatchers("/categories").permitAll()
+                        .requestMatchers("/uploads/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/menu-items").permitAll()
                         .requestMatchers(HttpMethod.GET, "/employees/**").hasAnyAuthority("ADMIN", "CHEF")
                         .requestMatchers(HttpMethod.POST, "/employees/**").hasAuthority("ADMIN")

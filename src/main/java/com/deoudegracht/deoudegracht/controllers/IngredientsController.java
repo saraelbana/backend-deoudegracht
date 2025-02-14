@@ -28,14 +28,14 @@ public class IngredientsController {
     ResponseEntity<?> createIngredient(@Valid @RequestBody IngredientRequestDTO ingredientRequestDTO) {
         try {
             IngredientResponseDTO newCreatedIngredientDto = ingredientService.createIngredient(IngredientMapper.mapIngredientRequestDTOToIngredient(ingredientRequestDTO));
-            System.out.println("Hello there new Ingredient is created with ID number" + newCreatedIngredientDto.getId());
+
 
             URI uri = URI.create(ServletUriComponentsBuilder
                     .fromCurrentRequest()
                     .path("/" + newCreatedIngredientDto.getId())
                     .toUriString());
 
-            System.out.println("Ingredient is created");
+
             return ResponseEntity.created(uri).body(newCreatedIngredientDto);
         } catch (Exception e) {
             return ResponseEntity.unprocessableEntity().body(e.getMessage());

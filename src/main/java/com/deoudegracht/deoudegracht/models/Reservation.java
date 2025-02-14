@@ -37,11 +37,6 @@ public class Reservation {
         this.reservationDate = reservationDate;
         this.reservationTime = reservationTime;
         this.numberOfPersons = numberOfPersons;
-        // now i must have a guet model initialized before making a reservation
-        //while this is model class i will not initialize the guest model here
-        //i will just pass the username and let the service class to initialize the guest model
-        //should i call the service layer from here?
-        //this.guest = seachGuestByUsername(username);
     }
 
     public long getID() {

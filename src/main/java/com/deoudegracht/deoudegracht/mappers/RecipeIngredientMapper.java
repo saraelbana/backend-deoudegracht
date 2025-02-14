@@ -13,7 +13,4 @@ public class RecipeIngredientMapper {
     static public RecipeIngredient mapRecipeIngredientRequestDTOToRecipeIngredient(RecipeIngredientRequestDTO recipeItemRequestDTO) {
         return new RecipeIngredient(new Ingredient(recipeItemRequestDTO.getName()), recipeItemRequestDTO.getQuantity(), recipeItemRequestDTO.getUnit());
     }
-//    static public RecipeIngredient mapRecipeItemRequestDTOToRecipeItem(RecipeItemRequestDTO RecipeItemRequestDTO, long id){
-//        return new RecipeIngredient(mapRecipeItemRequestDTOToRecipeItem(RecipeItemRequestDTO), id);
-//    }
 }

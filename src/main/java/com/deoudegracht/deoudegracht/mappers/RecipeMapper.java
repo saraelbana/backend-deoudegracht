@@ -28,7 +28,7 @@ public class RecipeMapper {
         return recipeResponseDTO;
     }
     public static Recipe mapRecipeRequestDTOToRecipe(RecipeRequestDTO recipeRequestDTO) {
-        //public Recipe(String name, String description, FoodCategoryType category, List<RecipeIngredient> recipeIngredients, List<InstructionStep> instructionsSteps)
+
         Recipe recipe = new Recipe(recipeRequestDTO.getRecipeName(),recipeRequestDTO.getDescription(), FoodCategoryType.valueOf(recipeRequestDTO.getCategory()));
 
         List<RecipeIngredient> recipeItemsList = new ArrayList<>();
@@ -41,7 +41,6 @@ public class RecipeMapper {
         }
         recipe.setRecipeIngredients(recipeItemsList);
 
-        // Map Instruction Steps
         for(int i = 0; i < recipeRequestDTO.getInstructionsSteps().size(); i++){
             instructionsStepsList.add(InstructionStepMapper.mapInstructionStepRequestDTOToInstructionStep(recipeRequestDTO.getInstructionsSteps().get(i)));
         }

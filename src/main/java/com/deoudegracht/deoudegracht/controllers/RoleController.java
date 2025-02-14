@@ -20,7 +20,7 @@ public class RoleController {
     @GetMapping
     ResponseEntity<?> getAllRoles() {
         try {
-            System.out.println(roleService.getAllRoleTypes());
+
             return ResponseEntity.ok().body(roleService.getAllRoleTypes());
         } catch (Exception e) {
             return ResponseEntity.unprocessableEntity().body(e.getMessage());

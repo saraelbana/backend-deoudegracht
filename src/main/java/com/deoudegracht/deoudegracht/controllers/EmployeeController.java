@@ -27,18 +27,18 @@ public class EmployeeController {
         try {
             employeeRequestDTO.setUsername(employeeRequestDTO.getUsername().toLowerCase());
             EmployeeResponseDTO newCreatedEmployeeDto = employeeService.createEmployee(EmployeeMapper.mapEmployeeRequestDTOToEmployee(employeeRequestDTO));
-            System.out.println("Hello there new Employee is created with ID number" + newCreatedEmployeeDto.getId());
+
 
             URI uri = URI.create(ServletUriComponentsBuilder
                     .fromCurrentRequest()
                     .path("/" + newCreatedEmployeeDto.getUsername())
                     .toUriString());
 
-            System.out.println("Employee is created");
+
             return ResponseEntity.created(uri).body(newCreatedEmployeeDto);
         }
         catch (Exception e) {
-            System.out.println("error happened " + e.getMessage());
+
             return ResponseEntity.unprocessableEntity().body(e.getMessage());
         }
     }
@@ -62,16 +62,7 @@ public class EmployeeController {
             return ResponseEntity.notFound().build();
         }
     }
-//    @GetMapping
-//    ResponseEntity<EmployeeResponseDTO> getEmployeeByUsername(@PathVariable String username /*@RequestParam String username*/) {
-//        username = username.toLowerCase();
-//        try{
-//            return ResponseEntity.ok().body(employeeService.getEmployeeByUsername(username.toLowerCase()));
-//        }
-//        catch (Exception e) {
-//            return ResponseEntity.notFound().build();
-//        }
-//    }
+
     @PutMapping("/{username}")
     ResponseEntity<?> updateEmployee(@PathVariable String username, @RequestBody EmployeeRequestDTO employeeRequestDTO) {
         try {
@@ -81,7 +72,7 @@ public class EmployeeController {
                                     employeeRequestDTO)
                     ));
         } catch (Exception e) {
-            System.out.println("error happened " + e.getMessage());
+
             return ResponseEntity.unprocessableEntity().body(e.getMessage());
         }
     }

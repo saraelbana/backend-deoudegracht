@@ -25,8 +25,7 @@ public class User {
 
     @Column(name = "firstname")
     @NotNull
-    @Pattern(regexp = "^[a-zA-Z]+$", message = "Firstname should only contain letters") // this pater annoctation require another
-    //annotation to work properly which is the @Valid annotation
+    @Pattern(regexp = "^[a-zA-Z]+$", message = "Firstname should only contain letters")
     private String firstname;
     @Column(name = "lastname")
     @NotNull

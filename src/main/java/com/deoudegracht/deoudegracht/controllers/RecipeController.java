@@ -41,11 +41,11 @@ public class RecipeController {
     }
     @PostMapping
     ResponseEntity<?>createRecipe(@RequestBody RecipeRequestDTO recipeRequestDTO) {
-        System.out.println("hello there from recipe controller create this recpe" + recipeRequestDTO.toString());
+
         try {
-            System.out.println("hello there from recipe controller" + recipeRequestDTO.toString());
+
             RecipeResponseDTO newCreatedRecipeDto = recipeService.createRecipe(RecipeMapper.mapRecipeRequestDTOToRecipe(recipeRequestDTO));
-            System.out.println("Hello there here we are Recipe with ID number" + newCreatedRecipeDto.getId());
+
 
             URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentRequest().path("/" + newCreatedRecipeDto.getId()).toUriString());
 

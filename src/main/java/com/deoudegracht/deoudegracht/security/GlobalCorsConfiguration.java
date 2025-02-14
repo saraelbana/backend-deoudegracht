@@ -30,12 +30,4 @@ public class GlobalCorsConfiguration {
             };
         }
     }
-//        return new WebMvcConfigurer() {
-//            @Override
-//            public void addCorsMappings(@NotNull CorsRegistry registry) {
-//                registry.addMapping("/**")
-//                        .allowedOrigins("*")
-//                        .allowedMethods("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS");
-//            }
-//        };
-//    }
+

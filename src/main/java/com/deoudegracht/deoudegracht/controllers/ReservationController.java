@@ -24,18 +24,18 @@ public class ReservationController {
         try {
 
             ReservationResponseDTO newCreatedReservationDto = reservationService.createReservation(ReservationMapper.mapReservationRequestDTOToReservation(reservationRequestDTO));
-            System.out.println("Hello there new Employee is created with ID number" + newCreatedReservationDto.getID());
+
 
             URI uri = URI.create(ServletUriComponentsBuilder
                     .fromCurrentRequest()
                     .path("/" + newCreatedReservationDto.getID())
                     .toUriString());
 
-            System.out.println("Reservatoin is created");
+
             return ResponseEntity.created(uri).body(newCreatedReservationDto);
         }
         catch (Exception e) {
-            System.out.println("error happened " + e.getMessage());
+
             return ResponseEntity.unprocessableEntity().body(e.getMessage());
         }
     }
@@ -57,11 +57,6 @@ public class ReservationController {
             return ResponseEntity.notFound().build();
         }
     }
-  //to update a reservation user has to delete the old one and create a new reservation
-//    @PutMapping()
-//    ResponseEntity<?> updateReservation(@Valid @RequestBody ReservationRequestDTO reservationRequestDTO) {
-//        return ResponseEntity.ok(new ReservationResponseDTO());
-//    }
     @DeleteMapping
     ResponseEntity<?> deleteReservation(@RequestParam long id) {
         try {

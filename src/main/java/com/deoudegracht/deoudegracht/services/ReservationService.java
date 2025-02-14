@@ -53,7 +53,6 @@ public class ReservationService {
                 throw new RuntimeException("no reservations found for this user: " + username);
             }
 
-            //System.out.println(employee.get().getUser().getFirstname() + " " + employee.get().getUser().getLastname());
             return ReservationMapper.mapReservationToReservationResponseDTO(reservation.get());
         } catch (Exception e) {
             throw new RuntimeException("reservation not found");
@@ -67,7 +66,7 @@ public class ReservationService {
         } else {
             try {
                 reservationRepository.deleteById(reservation.get().getID());
-                System.out.println("Reservation is deleted");
+
             } catch (Exception e) {
                 throw new RuntimeException("Deleting reservation process failed");
             }

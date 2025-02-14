@@ -26,8 +26,6 @@ public class ExceptionController {
     public ResponseEntity<String> exception(DataIntegrityViolationException exception)
     {
         return new ResponseEntity<>("null value in column hdr", HttpStatus.BAD_REQUEST);
-        //return new ResponseEntity<>("null value in column hdr", HttpStatus.CONFLICT);
-
     }
 
 }

@@ -1,5 +1,4 @@
 package com.deoudegracht.deoudegracht.dtos;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,7 +8,6 @@ public class RecipeRequestDTO {
     private String category = "OTHER";
     private List<RecipeIngredientRequestDTO> recipeIngredients = new ArrayList<>();
     private List<InstructionStepRequestDTO> instructionsSteps = new ArrayList<>();
-
     public RecipeRequestDTO() {
     }
     public RecipeRequestDTO(String recipeName, String description, String category, List<RecipeIngredientRequestDTO> recipeIngredients, List<InstructionStepRequestDTO> instructionsSteps) {
@@ -17,9 +15,7 @@ public class RecipeRequestDTO {
         this.description = description;
         this.category = category;
         this.recipeIngredients = recipeIngredients;
-        this.instructionsSteps = instructionsSteps;
-        System.out.println("hello there from the request DTO constructor" + this.toString());
-    }
+        this.instructionsSteps = instructionsSteps;}
     @Override
     public String toString() {
         return "RecipeRequestDTO {" +

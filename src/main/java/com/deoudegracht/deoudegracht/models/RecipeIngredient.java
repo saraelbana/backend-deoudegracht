@@ -22,7 +22,6 @@ public class RecipeIngredient {
 
     private String unit;
     public RecipeIngredient() {
-        // Default constructor required by Hibernate
     }
 
     public RecipeIngredient(Ingredient ingredient, float quantity, String unit) {

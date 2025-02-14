@@ -19,7 +19,6 @@ public class ReservationRequestDTO {
     @NotNull
     @Min(1)
     @Max(15)
-    //Minimum number of persons is 1 and maximum is 15
     private int numberOfPersons;
 
     public ReservationRequestDTO(@NotNull String username, @NotNull LocalDate reservationDate, @NotNull LocalDate dateCreated, @NotNull @Min(1) @Max(15) int numberOfPersons) {

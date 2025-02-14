@@ -70,7 +70,6 @@ public class GuestService {
                 throw new RuntimeException("Guest not found");
             }
 
-            System.out.println(guest.get().getUser().getFirstname() + " " + guest.get().getUser().getLastname());
             return GuestMapper.mapGuestToGuestResponseDTO(guest.get());
         } catch (Exception e) {
             throw new RuntimeException("Geust not found");
@@ -85,7 +84,7 @@ public class GuestService {
                 throw new RuntimeException("guest not found");
             }
 
-            System.out.println(existingGuestOptional.get().getUser().getFirstname() + " " + existingGuestOptional.get().getUser().getLastname());
+
             Guest existingGuest = existingGuestOptional.get();
             existingGuest.getUser().setFirstname(newDataGuest.getUser().getFirstname());
             existingGuest.getUser().setLastname(newDataGuest.getUser().getLastname());
@@ -93,11 +92,9 @@ public class GuestService {
             existingGuest.getUser().setPhone(newDataGuest.getUser().getPhone());
             existingGuest.getUser().setPassword(newDataGuest.getUser().getPassword());
             existingGuest.getUser().setUsername(newDataGuest.getUser().getUsername());
-            System.out.println(existingGuest.getUser().getFirstname() + " " + existingGuest.getUser().getLastname());
-
 
             Guest updatedGuest = guestRepository.save(existingGuest);
-            System.out.println("Guest Data updated successfully");
+
             return GuestMapper.mapGuestToGuestResponseDTO(updatedGuest);
 
         } catch (Exception e) {
@@ -112,7 +109,7 @@ public class GuestService {
         } else {
             try {
                 guestRepository.deleteById(guest.get().getID());
-                System.out.println("Guest deleted");
+
             } catch (Exception e) {
                 throw new RuntimeException("Deleting Guest process failed");
             }

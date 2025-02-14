@@ -28,18 +28,18 @@ public class GuestController {
         try{
             guestRequestDTO.setUsername(guestRequestDTO.getUsername().toLowerCase());
             GuestResponseDTO newCreatedGuestDto = guestService.createGuest(GuestMapper.mapGuestRequestDTOToGuest(guestRequestDTO));
-            System.out.println("Hello there new Guest is created with ID number" + newCreatedGuestDto.getId());
+
 
             URI uri = URI.create(ServletUriComponentsBuilder
                     .fromCurrentRequest()
                     .path("/" + newCreatedGuestDto.getUsername())
                     .toUriString());
 
-            System.out.println("Guest is created");
+
             return ResponseEntity.created(uri).body(newCreatedGuestDto);
         }
         catch (Exception e) {
-            System.out.println("error happened " + e.getMessage());
+
             return ResponseEntity.unprocessableEntity().body(e.getMessage());
         }
     }
@@ -71,7 +71,7 @@ public class GuestController {
                                     guestRequestDTO)
                     ));
         } catch (Exception e) {
-            System.out.println("error happened " + e.getMessage());
+
             return ResponseEntity.unprocessableEntity().body(e.getMessage());
         }
     }

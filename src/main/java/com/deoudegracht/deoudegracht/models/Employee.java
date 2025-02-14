@@ -21,7 +21,6 @@ public class Employee {
     public Employee(String firstname, String lastname, String email, String username, String password, String role, String phone) {
         this.user = new User(username, password, firstname, lastname, email, phone, Role.valueOf(role));
         this.role = Role.valueOf(role);
-        System.out.println("Hello there from the employee constructor password is" + this.user.getPassword());
     }
 
     public long getId() {

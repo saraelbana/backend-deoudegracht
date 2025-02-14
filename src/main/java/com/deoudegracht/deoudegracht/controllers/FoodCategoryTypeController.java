@@ -18,7 +18,7 @@ public class FoodCategoryTypeController {
     @GetMapping
     ResponseEntity<?> getAllCategories() {
         try {
-            System.out.println(foodCategoryTypeService.getAllFoodCategoryTypes());
+
             return ResponseEntity.ok().body(foodCategoryTypeService.getAllFoodCategoryTypes());
         } catch (Exception e) {
             return ResponseEntity.unprocessableEntity().body(e.getMessage());

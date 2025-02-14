@@ -25,11 +25,4 @@ public class EmployeeMapper {
         );
     }
 
-
-//    static public Employee mapEmployeeRequestDTOToEmployee(EmployeeRequestDTO employeeRequestDTO, long id) {
-//        Employee employee = mapEmployeeRequestDTOToEmployee(employeeRequestDTO);
-//        employee.setId(id);
-//        return employee;
-//    }
-
 }

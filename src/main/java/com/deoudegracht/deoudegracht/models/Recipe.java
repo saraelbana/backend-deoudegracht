@@ -20,7 +20,6 @@ public class Recipe {
     private List<RecipeIngredient> recipeIngredients = new ArrayList<>();
     @OneToMany(mappedBy = "recipe", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<InstructionStep> instructionsSteps = new ArrayList<>();
-
     public Recipe(String name, String description, FoodCategoryType category) {
         this.name = name;
         this.description = description;
