@@ -53,17 +53,17 @@ public class EmployeeServiceTest {
     }
     @Test
     public void testCreateEmployee() {
-        //given
+        //given Arrange
         String username = "testcreateusername";
         Employee employee = new Employee();
         employee.setUser(new User(username, "testingPassword", "firstname", "lastname", "test@test.com", "phone"));
         employee.setRole(Role.EMPLOYEE);
 
-        // when
+        // when act
         Mockito.when(employeeRepository.save(employee)).thenReturn(employee);
         EmployeeResponseDTO createdEmployee = employeeService.createEmployee(employee);
 
-        //then
+        //then assert
         assertEquals(employee.getUser().getUsername(), createdEmployee.getUsername());
         assertEquals(employee.getUser().getFirstname(), createdEmployee.getFirstname());
         assertEquals(employee.getUser().getLastname(), createdEmployee.getLastname());
@@ -126,7 +126,7 @@ public class EmployeeServiceTest {
 
     @Test
     public void testGetEmployeeByUsername() {
-        // given
+        // given arrange
         String username = "testgetusername";
         String firstName = "John";
         String lastName = "Doe";
@@ -139,13 +139,13 @@ public class EmployeeServiceTest {
         employee.setUser(user);
         employee.setRole(role);
 
-        // when
+        // when act
         when(employeeRepository.findByUser_Username(username)).thenReturn(Optional.of(employee));
         
         // then
         EmployeeResponseDTO found = employeeService.getEmployeeByUsername(username);
         
-        // verify
+        // verify assert
         assertNotNull(found, "Employee response should not be null");
         assertEquals(username, found.getUsername(), "Username should match");
         assertEquals(firstName, found.getFirstname(), "First name should match");

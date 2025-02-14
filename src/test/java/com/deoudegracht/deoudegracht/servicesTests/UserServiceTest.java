@@ -30,29 +30,29 @@ public class UserServiceTest {
     User user;
     @Test
     public void testFindByUsername() {
-        //given
+        //given arrange
         String username = "test.username";
         String expectedUsername = "test.username";
         user = new User(username, "password12345", "firstname", "lastname", " email@email.com", "not provided");
         User mockSavedUser = userService.createUser(user);
 
-        // when
+        // when act
         Mockito.when(userRepository.findByUsername(expectedUsername)).thenReturn(Optional.of(user));
         Optional<User> found = userService.findByUsername(expectedUsername);
 
-        // then
+        // then assert
         assertEquals(expectedUsername, found.get().getUsername());
     }
     @Test
     public void testCreateUser() {
-        //given
+        //given arrange
         User user = new User("username", "password12345", "firstname", "lastname", " email@email.com", "not provided");
 
-        // when
+        // when act
         Mockito.when(userRepository.save(user)).thenReturn(user);
         User createdUser = userService.createUser(user);
 
-        // then
+        // then assert
         assertEquals(user.getUsername(), createdUser.getUsername());
         assertEquals(user.getPassword(), createdUser.getPassword());
         assertEquals(user.getFirstname(), createdUser.getFirstname());

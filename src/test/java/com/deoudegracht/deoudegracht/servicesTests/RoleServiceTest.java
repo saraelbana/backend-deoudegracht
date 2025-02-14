@@ -9,10 +9,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class RoleServiceTest {
     @Test
     public void testGetAllRoleTypes() {
+        //arrange
         RoleService service = new RoleService();
         RoleResponseDTO response = service.getAllRoleTypes();
 
-
+        //assert
         assertEquals(5, response.getAllRoles().size());
         assertEquals("EMPLOYEE", response.getAllRoles().get(0));
         assertEquals("ADMIN", response.getAllRoles().get(1));

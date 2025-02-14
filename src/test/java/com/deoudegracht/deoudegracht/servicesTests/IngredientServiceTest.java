@@ -25,15 +25,15 @@ public class IngredientServiceTest {
     private Ingredient ingredient;
     @Test
     public void testCreateIngredient() {
-        //given
+        //given arrange
         Ingredient ingredient = new Ingredient();
         ingredient.setName("testcreateingredient");
 
-        // when
+        // when act
          Mockito.when(ingredientRepository.save(ingredient)).thenReturn(ingredient);
          IngredientResponseDTO createdIngredient = ingredientService.createIngredient(ingredient);
 
-        //then
+        //then assert
          assertEquals(ingredient.getName(), createdIngredient.getName());
          ingredientService.deleteIngredient(ingredient.getId());
     }

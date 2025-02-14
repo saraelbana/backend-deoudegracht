@@ -33,16 +33,16 @@ public class RecipeServiceTest {
 
     @Test
     public void testGetRecipeById() {
-        // given
+        // given arrange
         long recipeId = 987654321L;
         Recipe recipe = new Recipe("Test Recipe", "Test Description", FoodCategoryType.Salad);
         recipe.setId(recipeId);
 
-        // when
+        // when act
         Mockito.when(recipeRepository.findById(recipeId)).thenReturn(Optional.of(recipe));
         Recipe result = recipeService.getRecipeById(recipeId);
 
-        // then
+        // then assert
         assertEquals(recipe.getId(), result.getId());
         assertEquals(recipe.getName(), result.getName());
         verify(recipeRepository).findById(recipeId);

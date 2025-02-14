@@ -9,9 +9,11 @@ public class FoodCategoryTypeServiceTest {
 
     @Test
     public void testGetAllFoodCategoryTypes() {
+        //arrange
         FoodCategoryTypeService service = new FoodCategoryTypeService();
         FoodCategoryTypeResponseDTO response = service.getAllFoodCategoryTypes();
 
+        //assert
         assertEquals(6, response.getAllFoodCategoryTypes().size());
         assertEquals("Appetizers", response.getAllFoodCategoryTypes().get(0));
         assertEquals("Dessert", response.getAllFoodCategoryTypes().get(1));
