@@ -9,14 +9,16 @@ public class MenuItemResponseDTO {
     private String category;
     private long id;
     private long recipeId;
+    private String imagePath;
 
-    public MenuItemResponseDTO(long id, String name, String description, double price, FoodCategoryType category, long recipeId) {
+    public MenuItemResponseDTO(long id, String name, String description, double price, FoodCategoryType category, long recipeId, String imagePath) {
         this.name = name;
         this.description = description;
         this.price = price;
         this.category = category.toString();
         this.id = id;
         this.recipeId = recipeId;
+        this.imagePath = imagePath;
     }
 
     public MenuItemResponseDTO() {
@@ -65,6 +67,14 @@ public class MenuItemResponseDTO {
 
     public void setRecipeId(long recipeId) {
         this.recipeId = recipeId;
+    }
+
+    public String getImagePath() {
+        return imagePath;
+    }
+
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
 
