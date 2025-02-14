@@ -17,49 +17,59 @@ import java.util.List;
 @RequestMapping("/menu-items")
 public class MenuItemController {
     private final MenuItemService menuItemService;
-    public MenuItemController(MenuItemService menuItemService) {
+    private final MenuItemMapper menuItemMapper;
+
+    public MenuItemController(MenuItemService menuItemService, MenuItemMapper menuItemMapper) {
         this.menuItemService = menuItemService;
+        this.menuItemMapper = menuItemMapper;
     }
     @GetMapping("/{id}")
     ResponseEntity<MenuItemResponseDTO> getMenuItemById(@PathVariable long id){
         try{
-            return ResponseEntity.ok().body(MenuItemMapper.mapMenuItemToMenuItemResponseDTO(menuItemService.getMenuItemById(id)));
+            return ResponseEntity.ok().body(menuItemMapper.mapMenuItemToMenuItemResponseDTO(menuItemService.getMenuItemById(id)));
         }
         catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
     }
     @GetMapping
-    ResponseEntity<List<MenuItemResponseDTO>> getAllMenuItems(){
-        try{
-            return ResponseEntity.ok().body(menuItemService.getAllMenuItems());
-        }
-        catch (Exception e) {
+    ResponseEntity<List<MenuItemResponseDTO>> getAllMenuItems() {
+        try {
+            List<MenuItem> menuItems = menuItemService.getAllMenuItems();
+            List<MenuItemResponseDTO> dtos = menuItems.stream()
+                .map(menuItemMapper::mapMenuItemToMenuItemResponseDTO)
+                .toList();
+            return ResponseEntity.ok().body(dtos);
+        } catch (Exception e) {
             return ResponseEntity.notFound().build();
         }
     }
-    @PostMapping()
-    ResponseEntity<?> createMenuItem(@RequestBody MenuItemRequestDTO menuItemRequestDTO){
+    @PostMapping(consumes = {"multipart/form-data"})
+    ResponseEntity<?> createMenuItem(MenuItemRequestDTO menuItemRequestDTO){
         try{
             MenuItem newToCreateMenuItem;
             try {
-                newToCreateMenuItem = MenuItemMapper.mapMenuItemRequestDTOToMenuItem(menuItemRequestDTO);
+                newToCreateMenuItem = menuItemMapper.mapMenuItemRequestDTOToMenuItem(menuItemRequestDTO);
             } catch (Exception e) {
                 return ResponseEntity.unprocessableEntity().body("Entered Menu Item Data is not correct");
             }
-            MenuItemResponseDTO newCreatedMenuItemresponseDto = menuItemService.createMenuItem(newToCreateMenuItem);
-            URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentRequest().path("/" + newCreatedMenuItemresponseDto.getId()).toUriString());
+            
+            MenuItem createdMenuItem = menuItemService.createMenuItem(newToCreateMenuItem);
+            MenuItemResponseDTO responseDto = menuItemMapper.mapMenuItemToMenuItemResponseDTO(createdMenuItem);
+            URI uri = URI.create(ServletUriComponentsBuilder.fromCurrentRequest().path("/" + responseDto.getId()).toUriString());
 
-            return ResponseEntity.created(uri).body(newCreatedMenuItemresponseDto);
+            return ResponseEntity.created(uri).body(responseDto);
         }
         catch (Exception e) {
             return ResponseEntity.unprocessableEntity().body("Creating new Menu Item failed");
         }
     }
-    @PutMapping("/{id}")
-    ResponseEntity<?> updateMenuItem(@PathVariable long id, @RequestBody MenuItemRequestDTO menuItemRequestDTO){
+    @PutMapping(value = "/{id}", consumes = {"multipart/form-data"})
+    ResponseEntity<?> updateMenuItem(@PathVariable long id, @ModelAttribute MenuItemRequestDTO menuItemRequestDTO){
         try{
-            return ResponseEntity.ok().body(MenuItemMapper.mapMenuItemToMenuItemResponseDTO(menuItemService.updateMenuItem(MenuItemMapper.mapMenuItemRequestDTOToMenuItem(menuItemRequestDTO,id))));
+            MenuItem menuItemToUpdate = menuItemMapper.mapMenuItemRequestDTOToMenuItem(menuItemRequestDTO, id);
+            MenuItem updatedMenuItem = menuItemService.updateMenuItem(menuItemToUpdate);
+            return ResponseEntity.ok().body(menuItemMapper.mapMenuItemToMenuItemResponseDTO(updatedMenuItem));
         }
         catch (Exception e) {
             return ResponseEntity.unprocessableEntity().body("Updating Menu Item failed");
