@@ -3,20 +3,10 @@ package com.deoudegracht.deoudegracht.models;
 import jakarta.persistence.*;
 import jakarta.persistence.Table;
 
+
 @Entity
 @Table(name = "menu_item")
 public class MenuItem {
-
-    public MenuItem(String name, String description, double price, FoodCategoryType category, long recipeId) {
-        this.name = name;
-        this.description = description;
-        this.price = price;
-        this.category = category;
-        this.recipeId = recipeId;
-    }
-
-    public MenuItem() {
-    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -32,6 +22,20 @@ public class MenuItem {
     private FoodCategoryType category;
     @Column(name = "recipe_id", nullable = false)
     private long recipeId;
+
+    private String imagePath;
+
+    public MenuItem(String name, String description, double price, FoodCategoryType category, long recipeId, String imagePath) {
+        this.name = name;
+        this.description = description;
+        this.price = price;
+        this.category = category;
+        this.recipeId = recipeId;
+        this.imagePath = imagePath;
+    }
+
+    public MenuItem() {
+    }
 
     public long getId() {
         return id;
@@ -71,6 +75,12 @@ public class MenuItem {
             throw new IllegalArgumentException("Price cannot be negative");
         }
         this.price = price;
+    }
+    public String getImagePath() {
+        return imagePath;
+    }
+    public void setImagePath(String imagePath) {
+        this.imagePath = imagePath;
     }
 
 }
