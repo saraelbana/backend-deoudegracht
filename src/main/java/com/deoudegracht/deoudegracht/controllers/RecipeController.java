@@ -1,10 +1,6 @@
 package com.deoudegracht.deoudegracht.controllers;
-
-import com.deoudegracht.deoudegracht.dtos.EmployeeRequestDTO;
-import com.deoudegracht.deoudegracht.dtos.EmployeeResponseDTO;
 import com.deoudegracht.deoudegracht.dtos.RecipeRequestDTO;
 import com.deoudegracht.deoudegracht.dtos.RecipeResponseDTO;
-import com.deoudegracht.deoudegracht.mappers.EmployeeMapper;
 import com.deoudegracht.deoudegracht.mappers.RecipeMapper;
 import com.deoudegracht.deoudegracht.services.RecipeService;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +11,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import java.net.URI;
 import java.util.List;
 
-@Controller
+@RestController
 @RequestMapping("/recipes")
 public class RecipeController {
     final private RecipeService recipeService;
@@ -26,9 +22,13 @@ public class RecipeController {
     @GetMapping
     public ResponseEntity<List<RecipeResponseDTO>> getAllRecipes() {
         try {
-            return ResponseEntity.ok().body(recipeService.getAllRecipes());
+            List<RecipeResponseDTO> recipes = recipeService.getAllRecipes();
+            return ResponseEntity.ok().body(recipes);
         } catch (Exception e) {
-            return ResponseEntity.notFound().build();
+            // Log the error
+            e.printStackTrace();
+            // Return an empty list instead of 404
+            return ResponseEntity.ok().body(List.of());
         }
     }
     @GetMapping("/{id}")

@@ -76,8 +76,8 @@ public class EmployeeController {
             return ResponseEntity.unprocessableEntity().body(e.getMessage());
         }
     }
-    @DeleteMapping
-    ResponseEntity<?> deleteEmployee(@RequestParam String username) {
+    @DeleteMapping("/{username}")
+    ResponseEntity<?> deleteEmployee(@PathVariable String username) {
         try {
             employeeService.deleteEmployee(username.toLowerCase());
             return ResponseEntity.ok().body("Employee deleted successfully");

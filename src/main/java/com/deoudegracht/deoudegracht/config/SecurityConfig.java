@@ -53,8 +53,8 @@ public class SecurityConfig {
                         .requestMatchers("/uploads/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/menu-items").permitAll()
                         .requestMatchers(HttpMethod.GET, "/employees/**").hasAnyAuthority("ADMIN", "CHEF")
-                        .requestMatchers(HttpMethod.POST, "/employees/**").hasAuthority("ADMIN")
-                        .requestMatchers(HttpMethod.PUT, "/employees/**").hasAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/employees/**").hasAnyAuthority("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/employees/**").hasAnyAuthority("ADMIN")
                         .requestMatchers(HttpMethod.DELETE, "/employees/**").hasAuthority("ADMIN")
                         .requestMatchers(HttpMethod.GET, "/recipes/**").hasAnyAuthority("ADMIN", "CHEF", "EMPLOYEE")
                         .requestMatchers("/recipes/**").hasAnyAuthority("ADMIN", "CHEF")
@@ -87,7 +87,7 @@ public class SecurityConfig {
     public AuthenticationManager authManager(HttpSecurity http) throws Exception {
         AuthenticationManagerBuilder authenticationManagerBuilder = http.getSharedObject(AuthenticationManagerBuilder.class);
         authenticationManagerBuilder.userDetailsService(userDetailsService)
-                                  .passwordEncoder(passwordEncoder());
+                .passwordEncoder(passwordEncoder());
         return authenticationManagerBuilder.build();
     }
 }
