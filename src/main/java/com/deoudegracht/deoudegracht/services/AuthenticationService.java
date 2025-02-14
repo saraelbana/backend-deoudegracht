@@ -40,14 +40,14 @@ public class AuthenticationService {
         try {
             userDetails = userDetailsService.loadUserByUsername(request.getUsername());
             user = userRepository.findByUsername(request.getUsername()).get();
-        } catch (UsernameNotFoundException e) {
+        } catch (Exception e) {
             logger.debug("User not found: {}", request.getUsername());
-            throw new BadCredentialsException("User not found");
+            throw new RuntimeException("User not found");
         }
 
         if (!passwordEncoder.matches(request.getPassword(), userDetails.getPassword())) {
             logger.debug("Invalid password for user: {}", request.getUsername());
-            throw new NotFoundException("User not found");
+            throw new RuntimeException("User not found");
         }
 
         String token = jwtService.generateToken(userDetails);
