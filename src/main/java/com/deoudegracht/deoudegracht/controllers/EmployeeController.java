@@ -64,7 +64,7 @@ public class EmployeeController {
     }
 
     @PutMapping("/{username}")
-    ResponseEntity<?> updateEmployee(@PathVariable String username, @RequestBody EmployeeRequestDTO employeeRequestDTO) {
+    ResponseEntity<?> updateEmployee(/*@PathVariable String username,*/ @RequestBody EmployeeRequestDTO employeeRequestDTO) {
         try {
             return ResponseEntity.ok().body(
                     employeeService.updateEmployee(

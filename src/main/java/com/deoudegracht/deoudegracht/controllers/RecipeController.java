@@ -25,9 +25,7 @@ public class RecipeController {
             List<RecipeResponseDTO> recipes = recipeService.getAllRecipes();
             return ResponseEntity.ok().body(recipes);
         } catch (Exception e) {
-            // Log the error
             e.printStackTrace();
-            // Return an empty list instead of 404
             return ResponseEntity.ok().body(List.of());
         }
     }

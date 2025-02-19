@@ -51,6 +51,7 @@ public class SecurityConfig {
                         .requestMatchers("/auth/register").permitAll()
                         .requestMatchers("/categories").permitAll()
                         .requestMatchers("/uploads/**").permitAll()
+                        .requestMatchers("/roles/**").permitAll()
                         .requestMatchers(HttpMethod.GET, "/menu-items").permitAll()
                         .requestMatchers(HttpMethod.GET, "/employees/**").hasAnyAuthority("ADMIN", "CHEF")
                         .requestMatchers(HttpMethod.POST, "/employees/**").hasAnyAuthority("ADMIN")
