@@ -29,11 +29,13 @@ public class AuthenticationController {
         this.guestService = guestService;
     }
     @PostMapping("/login")
-    public ResponseEntity<AutheticationResponseDTO> login(@RequestBody AuthenticationRequestDTO request) {
+    public ResponseEntity<?> login(@RequestBody AuthenticationRequestDTO request) {
         try {
             return ResponseEntity.ok(authService.authenticate(request));
         } catch (BadCredentialsException e) {
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
+            return ResponseEntity
+                    .status(HttpStatus.BAD_REQUEST)
+                    .body("Invalid username or password");
         }
     }
     @PostMapping("/register")
